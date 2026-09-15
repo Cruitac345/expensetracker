@@ -6,6 +6,8 @@ version: 1.0.0+1
 
 environment:
   sdk: ^3.11.5
+  # Целевая версия Flutter из технического задания.
+  flutter: '>=3.35.7'
 
 dependencies:
   flutter:

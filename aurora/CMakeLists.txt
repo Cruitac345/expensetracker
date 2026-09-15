@@ -17,8 +17,9 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_SKIP_RPATH OFF)
 set(CMAKE_INSTALL_RPATH "\$ORIGIN/../share/${BINARY_NAME}/lib")
 
-if(${PSDK_MAJOR} LESS 5)
-    message(FATAL_ERROR "Приложение собирается только для ОС Аврора 5 и новее")
+# Целевая платформа: ОС Аврора 5.1.6 и новее, но ниже 5.2.
+if(${PSDK_VERSION} VERSION_LESS 5.1.6 OR ${PSDK_VERSION} VERSION_GREATER_EQUAL 5.2)
+    message(FATAL_ERROR "Требуется ОС Аврора версии 5.1.6 и новее, но ниже 5.2 (текущая: ${PSDK_VERSION})")
 endif()
 
 find_package(PkgConfig REQUIRED)
