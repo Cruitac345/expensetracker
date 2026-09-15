@@ -224,16 +224,8 @@ void main() {
 
   group('Кодировка файла', () {
     test('UTF-8 с меткой порядка байтов', () {
-      final List<int> bytes = <int>[
-        0xEF,
-        0xBB,
-        0xBF,
-        ...utf8.encode('Кафе'),
-      ];
-      expect(
-        TextDecoder.decode(Uint8List.fromList(bytes)),
-        equals('Кафе'),
-      );
+      final List<int> bytes = <int>[0xEF, 0xBB, 0xBF, ...utf8.encode('Кафе')];
+      expect(TextDecoder.decode(Uint8List.fromList(bytes)), equals('Кафе'));
     });
 
     test('Windows-1251', () {

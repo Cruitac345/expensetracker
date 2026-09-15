@@ -96,8 +96,9 @@ void main() {
       ),
     ];
 
-    final Map<PaymentMethod, double> totals =
-        ExpenseAnalytics.byPaymentMethod(expenses);
+    final Map<PaymentMethod, double> totals = ExpenseAnalytics.byPaymentMethod(
+      expenses,
+    );
 
     expect(totals[PaymentMethod.card], equals(100));
     expect(totals[PaymentMethod.cash], equals(75));

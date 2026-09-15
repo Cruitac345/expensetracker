@@ -81,7 +81,9 @@ class AuroraTheme {
           vertical: AuroraSizes.paddingMedium + AuroraSizes.paddingSmall,
         ),
         hintStyle: textTheme.bodyMedium?.copyWith(color: palette.textSecondary),
-        labelStyle: textTheme.bodyMedium?.copyWith(color: palette.textSecondary),
+        labelStyle: textTheme.bodyMedium?.copyWith(
+          color: palette.textSecondary,
+        ),
         border: OutlineInputBorder(
           borderRadius: AuroraRadius.small,
           borderSide: BorderSide(color: palette.divider),
@@ -129,10 +131,7 @@ class AuroraTheme {
           padding: const EdgeInsets.symmetric(
             horizontal: AuroraSizes.paddingLarge,
           ),
-          side: BorderSide(
-            color: palette.accent,
-            width: AuroraSizes.lineWidth,
-          ),
+          side: BorderSide(color: palette.accent, width: AuroraSizes.lineWidth),
           textStyle: textTheme.labelLarge,
           shape: RoundedRectangleBorder(borderRadius: AuroraRadius.small),
         ),

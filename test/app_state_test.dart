@@ -215,8 +215,10 @@ void main() {
     await state.applyImport(result);
 
     expect(state.allExpenses, hasLength(2));
-    expect(state.customCategories.map((ExpenseCategory c) => c.name),
-        contains('Подписки'));
+    expect(
+      state.customCategories.map((ExpenseCategory c) => c.name),
+      contains('Подписки'),
+    );
     expect(state.trips.map((Trip t) => t.title), contains('Казань'));
     expect(
       state.allExpenses

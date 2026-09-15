@@ -37,8 +37,9 @@ class CategoryRepository {
   Future<List<ExpenseCategory>> loadAll() async {
     final List<Map<String, dynamic>> rows = await _store.read(collection);
     if (rows.isEmpty) {
-      final List<ExpenseCategory> defaults =
-          List<ExpenseCategory>.from(ExpenseCategory.defaults);
+      final List<ExpenseCategory> defaults = List<ExpenseCategory>.from(
+        ExpenseCategory.defaults,
+      );
       await saveAll(defaults);
       return defaults;
     }

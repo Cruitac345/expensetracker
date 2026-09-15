@@ -57,16 +57,11 @@ class FileJsonStore implements JsonStore {
     if (decoded is! List) {
       return <Map<String, dynamic>>[];
     }
-    return decoded
-        .whereType<Map<String, dynamic>>()
-        .toList(growable: false);
+    return decoded.whereType<Map<String, dynamic>>().toList(growable: false);
   }
 
   @override
-  Future<void> write(
-    String collection,
-    List<Map<String, dynamic>> rows,
-  ) async {
+  Future<void> write(String collection, List<Map<String, dynamic>> rows) async {
     final File file = await _file(collection);
     final File temp = File('${file.path}.tmp');
     await temp.writeAsString(jsonEncode(rows), flush: true);
@@ -93,10 +88,7 @@ class MemoryJsonStore implements JsonStore {
       );
 
   @override
-  Future<void> write(
-    String collection,
-    List<Map<String, dynamic>> rows,
-  ) async {
+  Future<void> write(String collection, List<Map<String, dynamic>> rows) async {
     _data[collection] = List<Map<String, dynamic>>.from(rows);
   }
 }

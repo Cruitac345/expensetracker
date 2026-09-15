@@ -68,7 +68,11 @@ class _ExpensesPageState extends State<ExpensesPage> {
     );
   }
 
-  void _openExpense(BuildContext context, Expense expense, {required bool split}) {
+  void _openExpense(
+    BuildContext context,
+    Expense expense, {
+    required bool split,
+  }) {
     if (split) {
       setState(() => _selectedId = expense.id);
       return;
@@ -87,7 +91,8 @@ class _ExpensesPageState extends State<ExpensesPage> {
     final List<Expense> expenses = state.visibleExpenses;
     final double total = ExpenseAnalytics.total(expenses);
 
-    if (split && _selectedId != null &&
+    if (split &&
+        _selectedId != null &&
         !expenses.any((Expense item) => item.id == _selectedId)) {
       _selectedId = null;
     }
@@ -95,8 +100,7 @@ class _ExpensesPageState extends State<ExpensesPage> {
     final Widget list = _ExpensesList(
       expenses: expenses,
       selectedId: split ? _selectedId : null,
-      onTap: (Expense expense) =>
-          _openExpense(context, expense, split: split),
+      onTap: (Expense expense) => _openExpense(context, expense, split: split),
       onAdd: () => _openForm(context),
       hasFilter: !state.filter.isEmpty,
       onResetFilter: state.resetFilter,
@@ -122,10 +126,7 @@ class _ExpensesPageState extends State<ExpensesPage> {
             badge: state.filter.activeCount,
             onPressed: () => _openFilters(state),
           ),
-          _SortButton(
-            current: state.sort,
-            onSelected: state.changeSort,
-          ),
+          _SortButton(current: state.sort, onSelected: state.changeSort),
         ],
         bottom: _searchVisible
             ? AuroraSearchField(
@@ -192,7 +193,9 @@ class _ExpensesList extends StatelessWidget {
 
     if (expenses.isEmpty) {
       return AuroraEmptyState(
-        icon: hasFilter ? Icons.filter_alt_off_outlined : Icons.savings_outlined,
+        icon: hasFilter
+            ? Icons.filter_alt_off_outlined
+            : Icons.savings_outlined,
         title: hasFilter ? 'Ничего не найдено' : 'Трат пока нет',
         message: hasFilter
             ? 'Измените условия фильтра или сбросьте его.'
@@ -232,7 +235,8 @@ class _ExpensesList extends StatelessWidget {
         AuroraSizes.itemSizeExtraLarge,
       ),
       itemCount: entries.length,
-      separatorBuilder: (_, _) => const SizedBox(height: AuroraSizes.paddingSmall),
+      separatorBuilder: (_, _) =>
+          const SizedBox(height: AuroraSizes.paddingSmall),
       itemBuilder: (BuildContext context, int index) {
         final _ListEntry entry = entries[index];
         if (entry.isHeader) {
@@ -252,9 +256,7 @@ class _ExpensesList extends StatelessWidget {
 }
 
 class _ListEntry {
-  _ListEntry.header(this.month, this.total)
-    : expense = null,
-      isHeader = true;
+  _ListEntry.header(this.month, this.total) : expense = null, isHeader = true;
 
   _ListEntry.expense(this.expense)
     : month = null,

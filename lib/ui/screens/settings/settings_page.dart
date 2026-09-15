@@ -54,14 +54,11 @@ class SettingsPage extends StatelessWidget {
                   for (final ThemeMode mode in ThemeMode.values)
                     RadioListTile<ThemeMode>(
                       value: mode,
-                      title: Text(
-                        switch (mode) {
-                          ThemeMode.system => 'Как в системе',
-                          ThemeMode.light => 'Светлая',
-                          ThemeMode.dark => 'Тёмная',
-                        },
-                        style: text.bodyMedium,
-                      ),
+                      title: Text(switch (mode) {
+                        ThemeMode.system => 'Как в системе',
+                        ThemeMode.light => 'Светлая',
+                        ThemeMode.dark => 'Тёмная',
+                      }, style: text.bodyMedium),
                       contentPadding: EdgeInsets.zero,
                     ),
                 ],
@@ -74,10 +71,7 @@ class SettingsPage extends StatelessWidget {
             subtitle: 'Хранятся локально в каталоге приложения',
             child: Column(
               children: <Widget>[
-                _InfoRow(
-                  label: 'Траты',
-                  value: '${state.allExpenses.length}',
-                ),
+                _InfoRow(label: 'Траты', value: '${state.allExpenses.length}'),
                 _InfoRow(
                   label: 'Общая сумма',
                   value: Formatters.money(
@@ -90,10 +84,7 @@ class SettingsPage extends StatelessWidget {
                       '${state.categories.length} '
                       '(своих — ${state.customCategories.length})',
                 ),
-                _InfoRow(
-                  label: 'Командировки',
-                  value: '${state.trips.length}',
-                ),
+                _InfoRow(label: 'Командировки', value: '${state.trips.length}'),
                 const SizedBox(height: AuroraSizes.paddingMedium),
                 OutlinedButton.icon(
                   onPressed: () async {

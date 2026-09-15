@@ -33,12 +33,10 @@ class ExpenseDetailsView extends StatelessWidget {
     final AuroraPalette palette = context.palette;
     final TextTheme text = Theme.of(context).textTheme;
 
-    final Expense? expense = state.allExpenses
-        .cast<Expense?>()
-        .firstWhere(
-          (Expense? item) => item?.id == expenseId,
-          orElse: () => null,
-        );
+    final Expense? expense = state.allExpenses.cast<Expense?>().firstWhere(
+      (Expense? item) => item?.id == expenseId,
+      orElse: () => null,
+    );
 
     if (expense == null) {
       return const AuroraEmptyState(

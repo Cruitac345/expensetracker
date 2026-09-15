@@ -469,9 +469,7 @@ class _CategorySelector extends StatelessWidget {
             onSelected: (_) => onSelected(category.id),
             showCheckmark: false,
             avatar: Icon(
-              category.id == selectedId
-                  ? Icons.check
-                  : Icons.circle,
+              category.id == selectedId ? Icons.check : Icons.circle,
               size: 14,
               color: category.id == selectedId
                   ? palette.onAccentFill
@@ -540,11 +538,12 @@ class _PaymentMethodSelector extends StatelessWidget {
                           textAlign: TextAlign.center,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: method == selected
-                                ? palette.onAccentFill
-                                : palette.textSecondary,
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                color: method == selected
+                                    ? palette.onAccentFill
+                                    : palette.textSecondary,
+                              ),
                         ),
                       ],
                     ),

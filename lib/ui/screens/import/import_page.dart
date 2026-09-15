@@ -48,11 +48,7 @@ class _ImportPageState extends State<ImportPage> {
       final String content = TextDecoder.decode(await file.readAsBytes());
       final CsvImportResult result = CsvImportService(
         idGenerator: state.newId,
-      ).parse(
-        content,
-        categories: state.categories,
-        trips: state.trips,
-      );
+      ).parse(content, categories: state.categories, trips: state.trips);
       if (!mounted) {
         return;
       }

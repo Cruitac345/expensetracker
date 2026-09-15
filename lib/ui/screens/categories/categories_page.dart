@@ -162,10 +162,7 @@ class CategoriesPage extends StatelessWidget {
           AuroraSizes.paddingLarge,
         ),
         children: <Widget>[
-          Text(
-            'Стандартные',
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
+          Text('Стандартные', style: Theme.of(context).textTheme.titleSmall),
           const SizedBox(height: AuroraSizes.paddingSmall),
           for (final ExpenseCategory category in builtIn)
             _CategoryTile(
@@ -176,10 +173,7 @@ class CategoriesPage extends StatelessWidget {
               ),
             ),
           const SizedBox(height: AuroraSizes.paddingLarge),
-          Text(
-            'Собственные',
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
+          Text('Собственные', style: Theme.of(context).textTheme.titleSmall),
           const SizedBox(height: AuroraSizes.paddingSmall),
           if (custom.isEmpty)
             Padding(
@@ -403,11 +397,14 @@ class _CategoryFormState extends State<_CategoryForm> {
                 spacing: AuroraSizes.paddingSmall,
                 runSpacing: AuroraSizes.paddingSmall,
                 children: <Widget>[
-                  for (int index = 0;
-                      index < AuroraPalette.chart.length;
-                      index++)
+                  for (
+                    int index = 0;
+                    index < AuroraPalette.chart.length;
+                    index++
+                  )
                     _PickerCell(
-                      selected: index == _colorIndex % AuroraPalette.chart.length,
+                      selected:
+                          index == _colorIndex % AuroraPalette.chart.length,
                       color: AuroraPalette.chartColorAt(index),
                       onTap: () => setState(() => _colorIndex = index),
                       child: Container(

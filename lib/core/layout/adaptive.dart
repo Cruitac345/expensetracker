@@ -17,7 +17,8 @@ class AuroraLayout {
   /// Порог, при котором дополнительно закрепляется панель навигации.
   static const double wideBreakpoint = 1000;
 
-  static double widthOf(BuildContext context) => MediaQuery.sizeOf(context).width;
+  static double widthOf(BuildContext context) =>
+      MediaQuery.sizeOf(context).width;
 
   /// Многопанельный режим: список слева, содержимое справа.
   static bool isSplit(BuildContext context) =>
@@ -76,21 +77,21 @@ class AuroraSplitView extends StatelessWidget {
       }
     }
 
-    return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: children);
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: children,
+    );
   }
 }
 
 /// Панель многопанельного режима.
 @immutable
 class AuroraPanel {
-  const AuroraPanel({
-    required this.child,
-    this.columnSpan = 4,
-    this.width,
-  }) : assert(
-         columnSpan >= 1 && columnSpan <= 12,
-         'Панель занимает от 1 до 12 колонок',
-       );
+  const AuroraPanel({required this.child, this.columnSpan = 4, this.width})
+    : assert(
+        columnSpan >= 1 && columnSpan <= 12,
+        'Панель занимает от 1 до 12 колонок',
+      );
 
   /// Содержимое панели.
   final Widget child;

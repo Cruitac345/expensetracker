@@ -69,7 +69,10 @@ void main() {
 
   for (final Screen screen in screens) {
     group(screen.name, () {
-      Future<void> prepare(WidgetTester tester, {double textScale = 1.0}) async {
+      Future<void> prepare(
+        WidgetTester tester, {
+        double textScale = 1.0,
+      }) async {
         tester.view.physicalSize = screen.size;
         tester.view.devicePixelRatio = screen.ratio;
         tester.platformDispatcher.textScaleFactorTestValue = textScale;
@@ -80,7 +83,11 @@ void main() {
         final AppState state = await demoState();
         await tester.pumpWidget(buildApp(state));
         await tester.pumpAndSettle();
-        expect(tester.takeException(), isNull, reason: 'исключение при запуске');
+        expect(
+          tester.takeException(),
+          isNull,
+          reason: 'исключение при запуске',
+        );
       }
 
       testWidgets('список трат', (WidgetTester tester) async {

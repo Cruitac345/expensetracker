@@ -47,7 +47,8 @@ class Formatters {
   static String dayMonth(DateTime value) => _dayMonth.format(value);
 
   /// Месяц и год с заглавной буквы: `Май 2026`.
-  static String monthYear(DateTime value) => capitalize(_monthYear.format(value));
+  static String monthYear(DateTime value) =>
+      capitalize(_monthYear.format(value));
 
   /// Короткое название месяца для оси диаграммы: `май`.
   static String monthShort(DateTime value) =>
@@ -61,9 +62,8 @@ class Formatters {
     return '${date(start)} — ${date(end)}';
   }
 
-  static String capitalize(String value) => value.isEmpty
-      ? value
-      : value[0].toUpperCase() + value.substring(1);
+  static String capitalize(String value) =>
+      value.isEmpty ? value : value[0].toUpperCase() + value.substring(1);
 
   /// Разбор суммы из пользовательского ввода: принимает `1234,50` и `1234.50`.
   static double? parseAmount(String raw) {

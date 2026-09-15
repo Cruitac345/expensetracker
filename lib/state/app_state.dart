@@ -177,9 +177,10 @@ class AppState extends ChangeNotifier {
 
   /// Удаляет трату вместе с прикреплёнными чеками.
   Future<void> deleteExpense(String id) async {
-    final Expense? expense = _expenses
-        .cast<Expense?>()
-        .firstWhere((Expense? item) => item?.id == id, orElse: () => null);
+    final Expense? expense = _expenses.cast<Expense?>().firstWhere(
+      (Expense? item) => item?.id == id,
+      orElse: () => null,
+    );
     if (expense == null) {
       return;
     }
@@ -217,9 +218,7 @@ class AppState extends ChangeNotifier {
 
   Future<void> updateCategory(ExpenseCategory category) async {
     _categories = _categories
-        .map(
-          (ExpenseCategory item) => item.id == category.id ? category : item,
-        )
+        .map((ExpenseCategory item) => item.id == category.id ? category : item)
         .toList();
     await _categoryRepository.saveAll(_categories);
     notifyListeners();
@@ -301,7 +300,9 @@ class AppState extends ChangeNotifier {
   }
 
   Future<void> updateTrip(Trip trip) async {
-    _trips = _trips.map((Trip item) => item.id == trip.id ? trip : item).toList();
+    _trips = _trips
+        .map((Trip item) => item.id == trip.id ? trip : item)
+        .toList();
     await _tripRepository.saveAll(_trips);
     notifyListeners();
   }
@@ -311,8 +312,9 @@ class AppState extends ChangeNotifier {
     _trips = _trips.where((Trip trip) => trip.id != id).toList();
     _expenses = _expenses
         .map(
-          (Expense expense) =>
-              expense.tripId == id ? expense.copyWith(clearTrip: true) : expense,
+          (Expense expense) => expense.tripId == id
+              ? expense.copyWith(clearTrip: true)
+              : expense,
         )
         .toList();
     if (_filter.tripId == id) {

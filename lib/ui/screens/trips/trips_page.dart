@@ -274,8 +274,10 @@ class TripDetailsView extends StatelessWidget {
         ),
         const SizedBox(height: AuroraSizes.paddingSmall),
         if (expenses.isEmpty)
-          Text('К командировке не прикреплено ни одной траты.',
-              style: text.bodySmall)
+          Text(
+            'К командировке не прикреплено ни одной траты.',
+            style: text.bodySmall,
+          )
         else
           for (final Expense expense in expenses)
             Padding(

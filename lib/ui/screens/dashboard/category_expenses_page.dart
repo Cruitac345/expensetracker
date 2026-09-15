@@ -81,8 +81,7 @@ class CategoryExpensesPage extends StatelessWidget {
                   trip: state.tripById(expense.tripId),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute<void>(
-                      builder: (_) =>
-                          ExpenseDetailsPage(expenseId: expense.id),
+                      builder: (_) => ExpenseDetailsPage(expenseId: expense.id),
                     ),
                   ),
                 );

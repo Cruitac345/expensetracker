@@ -21,11 +21,8 @@ Future<ExpenseFilter?> showExpenseFilters(
 }) => showModalBottomSheet<ExpenseFilter>(
   context: context,
   isScrollControlled: true,
-  builder: (BuildContext context) => _FiltersSheet(
-    initial: initial,
-    categories: categories,
-    trips: trips,
-  ),
+  builder: (BuildContext context) =>
+      _FiltersSheet(initial: initial, categories: categories, trips: trips),
 );
 
 class _FiltersSheet extends StatefulWidget {
@@ -213,7 +210,10 @@ class _FiltersSheetState extends State<_FiltersSheet> {
                               setState(() => _range = value),
                         ),
                         ActionChip(
-                          avatar: const Icon(Icons.date_range, size: AuroraSizes.iconSizeExtraSmall),
+                          avatar: const Icon(
+                            Icons.date_range,
+                            size: AuroraSizes.iconSizeExtraSmall,
+                          ),
                           label: Text(
                             _range == null
                                 ? 'Произвольный период'
@@ -224,7 +224,10 @@ class _FiltersSheetState extends State<_FiltersSheet> {
                         ),
                         if (_range != null)
                           ActionChip(
-                            avatar: const Icon(Icons.close, size: AuroraSizes.iconSizeExtraSmall),
+                            avatar: const Icon(
+                              Icons.close,
+                              size: AuroraSizes.iconSizeExtraSmall,
+                            ),
                             label: const Text('Убрать период'),
                             labelStyle: text.bodyMedium,
                             onPressed: () => setState(() => _range = null),
@@ -239,10 +242,9 @@ class _FiltersSheetState extends State<_FiltersSheet> {
                         Expanded(
                           child: TextField(
                             controller: _minController,
-                            keyboardType:
-                                const TextInputType.numberWithOptions(
-                                  decimal: true,
-                                ),
+                            keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true,
+                            ),
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.allow(
                                 RegExp(r'[0-9.,]'),
@@ -258,10 +260,9 @@ class _FiltersSheetState extends State<_FiltersSheet> {
                         Expanded(
                           child: TextField(
                             controller: _maxController,
-                            keyboardType:
-                                const TextInputType.numberWithOptions(
-                                  decimal: true,
-                                ),
+                            keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true,
+                            ),
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.allow(
                                 RegExp(r'[0-9.,]'),
@@ -282,8 +283,7 @@ class _FiltersSheetState extends State<_FiltersSheet> {
                       spacing: AuroraSizes.paddingSmall,
                       runSpacing: AuroraSizes.paddingSmall,
                       children: <Widget>[
-                        for (final PaymentMethod method
-                            in PaymentMethod.values)
+                        for (final PaymentMethod method in PaymentMethod.values)
                           FilterChip(
                             selected: _methods.contains(method),
                             onSelected: (bool selected) => setState(() {
@@ -293,7 +293,10 @@ class _FiltersSheetState extends State<_FiltersSheet> {
                                 _methods.remove(method);
                               }
                             }),
-                            avatar: Icon(method.icon, size: AuroraSizes.iconSizeExtraSmall),
+                            avatar: Icon(
+                              method.icon,
+                              size: AuroraSizes.iconSizeExtraSmall,
+                            ),
                             label: Text(method.label),
                             labelStyle: text.bodyMedium?.copyWith(
                               color: _methods.contains(method)

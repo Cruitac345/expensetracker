@@ -83,7 +83,10 @@ class CsvImportService {
   static String detectDelimiter(String content) {
     final String line = content
         .split(RegExp(r'\r\n|\r|\n'))
-        .firstWhere((String value) => value.trim().isNotEmpty, orElse: () => '');
+        .firstWhere(
+          (String value) => value.trim().isNotEmpty,
+          orElse: () => '',
+        );
     String best = ';';
     int bestCount = 0;
     for (final String delimiter in _delimiters) {

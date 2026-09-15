@@ -44,17 +44,14 @@ class ExpenseCategory {
     'isBuiltIn': isBuiltIn,
   };
 
-  ExpenseCategory copyWith({
-    String? name,
-    String? iconKey,
-    int? colorIndex,
-  }) => ExpenseCategory(
-    id: id,
-    name: name ?? this.name,
-    iconKey: iconKey ?? this.iconKey,
-    colorIndex: colorIndex ?? this.colorIndex,
-    isBuiltIn: isBuiltIn,
-  );
+  ExpenseCategory copyWith({String? name, String? iconKey, int? colorIndex}) =>
+      ExpenseCategory(
+        id: id,
+        name: name ?? this.name,
+        iconKey: iconKey ?? this.iconKey,
+        colorIndex: colorIndex ?? this.colorIndex,
+        isBuiltIn: isBuiltIn,
+      );
 
   /// Стандартные категории трат (техническое задание, раздел «Категории трат»).
   static const List<ExpenseCategory> defaults = <ExpenseCategory>[

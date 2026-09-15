@@ -47,7 +47,9 @@ class ExpenseListItem extends StatelessWidget {
     ];
 
     return Material(
-      color: selected ? palette.accent.withValues(alpha: 0.12) : palette.surface,
+      color: selected
+          ? palette.accent.withValues(alpha: 0.12)
+          : palette.surface,
       borderRadius: AuroraRadius.medium,
       child: InkWell(
         onTap: onTap,

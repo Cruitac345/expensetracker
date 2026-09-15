@@ -65,10 +65,7 @@ class ExpenseAnalytics {
 
   /// Распределение трат по месяцам. Месяцы без трат заполняются нулями,
   /// чтобы столбчатая диаграмма не имела разрывов по временной оси.
-  static List<MonthTotal> byMonth(
-    List<Expense> expenses, {
-    DateRange? range,
-  }) {
+  static List<MonthTotal> byMonth(List<Expense> expenses, {DateRange? range}) {
     if (expenses.isEmpty && range == null) {
       return const <MonthTotal>[];
     }
@@ -94,11 +91,7 @@ class ExpenseAnalytics {
     while (!cursor.isAfter(last)) {
       final List<Expense> monthly = grouped[cursor] ?? const <Expense>[];
       result.add(
-        MonthTotal(
-          month: cursor,
-          total: total(monthly),
-          count: monthly.length,
-        ),
+        MonthTotal(month: cursor, total: total(monthly), count: monthly.length),
       );
       cursor = DateTime(cursor.year, cursor.month + 1);
     }
@@ -125,7 +118,9 @@ class ExpenseAnalytics {
       );
     }).toList();
 
-    result.sort((CategoryTotal a, CategoryTotal b) => b.total.compareTo(a.total));
+    result.sort(
+      (CategoryTotal a, CategoryTotal b) => b.total.compareTo(a.total),
+    );
     return result;
   }
 

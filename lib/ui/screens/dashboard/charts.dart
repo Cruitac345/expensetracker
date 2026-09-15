@@ -189,8 +189,7 @@ class CategoryPieChart extends StatelessWidget {
                   onSelected == null) {
                 return;
               }
-              final int index =
-                  response!.touchedSection!.touchedSectionIndex;
+              final int index = response!.touchedSection!.touchedSectionIndex;
               if (index >= 0 && index < totals.length) {
                 onSelected!(totals[index]);
               }
