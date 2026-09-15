@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=Трекер Расходов
+Name[en]=Expense Tracker
+Comment=Учёт личных и служебных расходов
+Comment[en]=Personal and business expense tracking
+Icon=ru.auroraos.expense_tracker
+Exec=/usr/bin/ru.auroraos.expense_tracker
+X-Nemo-Application-Type=silica-qt5
+
+[X-Application]
+Permissions=Camera;Pictures;Documents;Downloads;UserDirs
+OrganizationName=ru.auroraos
+ApplicationName=expense_tracker

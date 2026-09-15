@@ -1,0 +1,71 @@
+name: expense_tracker
+description: "Трекер Расходов — приложение учёта личных и служебных расходов для ОС Аврора"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # Состояние
+  provider: ^6.1.5
+
+  # Локальное хранение данных
+  path_provider: ^2.1.6
+  path: ^1.9.1
+  shared_preferences: ^2.5.5
+
+  # Чеки: камера и галерея
+  image_picker: ^1.2.3
+
+  # Импорт CSV из локальных файлов
+  file_selector: ^1.1.0
+  csv: ^8.0.0
+
+  # Форматирование дат и сумм
+  intl: ^0.20.2
+
+  # Диаграммы дашборда
+  fl_chart: ^1.2.0
+
+  uuid: ^4.6.0
+  collection: ^1.19.1
+
+  # Реализации плагинов для ОС Аврора (федеративные пакеты Open Mobile
+  # Platform). На других платформах не подключаются.
+  path_provider_aurora:
+    git:
+      url: https://gitlab.com/omprussia/flutter/packages.git
+      path: packages/path_provider_aurora
+      ref: aurora-path_provider_aurora-0.6.0
+  shared_preferences_aurora:
+    git:
+      url: https://gitlab.com/omprussia/flutter/packages.git
+      path: packages/shared_preferences_aurora
+      ref: aurora-shared_preferences_aurora-0.5.4
+  file_selector_aurora:
+    git:
+      url: https://gitlab.com/omprussia/flutter/flutter-community-plugins/file_selector_aurora.git
+      ref: aurora-0.0.5
+  image_picker_aurora:
+    git:
+      url: https://gitlab.com/omprussia/flutter/packages.git
+      path: packages/image_picker_aurora
+      ref: aurora-image_picker_aurora-0.0.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
