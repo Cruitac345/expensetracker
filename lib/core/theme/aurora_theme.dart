@@ -18,7 +18,9 @@ class AuroraTheme {
   static ThemeData dark() => _build(AuroraPalette.dark);
 
   static ThemeData _build(AuroraPalette palette) {
-    final TextTheme textTheme = _textTheme(palette);
+    // Гарнитура применяется сразу: стили кнопок и полей берутся из этой
+    // шкалы напрямую, поэтому семейство шрифта должно быть в ней уже задано.
+    final TextTheme textTheme = _textTheme(palette).apply(fontFamily: 'Roboto');
 
     return ThemeData(
       useMaterial3: true,
