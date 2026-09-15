@@ -293,4 +293,4 @@ flutter test tool/screenshots/screenshots_test.dart --update-goldens   # скр�
 ## Лицензия
 
 BSD 3-Clause — см. [LICENSE](LICENSE). Авторы перечислены в
-[AUTHORS.md](AUTHORS.md).
+[AUTHORS.md](AUTHORS.md), промпты разработки — в [PROMPTS.md](PROMPTS.md).
