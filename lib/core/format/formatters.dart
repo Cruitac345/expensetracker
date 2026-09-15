@@ -24,6 +24,7 @@ class Formatters {
   static final DateFormat _dayMonth = DateFormat('d MMMM', locale);
   static final DateFormat _monthYear = DateFormat('LLLL yyyy', locale);
   static final DateFormat _monthShort = DateFormat('LLL', locale);
+  static final DateFormat _dayMonthShort = DateFormat('d MMM', locale);
 
   /// Сумма с символом рубля: `1 234,50 ₽`.
   static String money(double value) => _money.format(value);
@@ -53,6 +54,16 @@ class Formatters {
   /// Короткое название месяца для оси диаграммы: `май`.
   static String monthShort(DateTime value) =>
       _monthShort.format(value).replaceAll('.', '');
+
+  /// Короткий период для подзаголовков: `1 апр — 30 сен 2026`.
+  static String rangeShort(DateTime start, DateTime end) {
+    String part(DateTime value) =>
+        _dayMonthShort.format(value).replaceAll('.', '');
+    if (start.year == end.year) {
+      return '${part(start)} — ${part(end)} ${end.year}';
+    }
+    return '${part(start)} ${start.year} — ${part(end)} ${end.year}';
+  }
 
   /// Период «с … по …» с опущенным повтором года.
   static String range(DateTime start, DateTime end) {

@@ -67,6 +67,15 @@ class _DashboardPageState extends State<DashboardPage> {
     return Formatters.range(range.start, range.end);
   }
 
+  /// Тот же период в коротком виде — для подзаголовка панели приложения.
+  String get _periodLabelShort {
+    final DateRange? range = _range;
+    if (range == null) {
+      return 'Всё время';
+    }
+    return Formatters.rangeShort(range.start, range.end);
+  }
+
   Future<void> _pickPeriod(DashboardPeriod period) async {
     if (period != DashboardPeriod.custom) {
       setState(() => _period = period);
@@ -194,7 +203,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       appBar: AuroraAppBar(
         title: 'Дашборд',
-        subtitle: '$_periodLabel · ${Formatters.money(total)}',
+        subtitle: '$_periodLabelShort · ${Formatters.money(total)}',
         leading: widget.leading,
         actions: <Widget>[
           _PeriodButton(current: _period, onSelected: _pickPeriod),
@@ -276,7 +285,7 @@ class _StatsRow extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: AuroraStatTile(
-            label: 'Всего за период',
+            label: 'Всего',
             value: Formatters.money(total),
             icon: Icons.account_balance_wallet_outlined,
           ),
@@ -284,7 +293,7 @@ class _StatsRow extends StatelessWidget {
         const SizedBox(width: AuroraSizes.paddingMedium),
         Expanded(
           child: AuroraStatTile(
-            label: 'Средняя трата',
+            label: 'Средняя',
             value: Formatters.money(ExpenseAnalytics.average(expenses)),
             icon: Icons.stacked_line_chart,
             accent: palette.success,
@@ -293,7 +302,7 @@ class _StatsRow extends StatelessWidget {
         const SizedBox(width: AuroraSizes.paddingMedium),
         Expanded(
           child: AuroraStatTile(
-            label: 'Наибольшая',
+            label: 'Максимум',
             value: largest == null ? '—' : Formatters.money(largest.amount),
             icon: Icons.trending_up,
             accent: palette.warning,

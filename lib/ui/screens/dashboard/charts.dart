@@ -64,17 +64,23 @@ class MonthlyBarChart extends StatelessWidget {
                 showTitles: true,
                 reservedSize: 66,
                 interval: maxValue == 0 ? 1 : maxValue / 2,
-                getTitlesWidget: (double value, TitleMeta meta) => Padding(
-                  padding: const EdgeInsets.only(
-                    right: AuroraSizes.paddingSmall,
-                  ),
-                  child: Text(
-                    value == 0 ? '0' : Formatters.compactNumber(value),
-                    style: text.bodySmall,
-                    maxLines: 1,
-                    textAlign: TextAlign.right,
-                  ),
-                ),
+                getTitlesWidget: (double value, TitleMeta meta) {
+                  // Верхняя граница оси лежит выше сетки — её не подписываем.
+                  if (value > maxValue) {
+                    return const SizedBox.shrink();
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      right: AuroraSizes.paddingSmall,
+                    ),
+                    child: Text(
+                      value == 0 ? '0' : Formatters.compactNumber(value),
+                      style: text.bodySmall,
+                      maxLines: 1,
+                      textAlign: TextAlign.right,
+                    ),
+                  );
+                },
               ),
             ),
             bottomTitles: AxisTitles(

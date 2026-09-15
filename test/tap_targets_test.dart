@@ -55,7 +55,10 @@ List<_Control> _controls(WidgetTester tester, List<Type> types) {
         continue;
       }
       final Iterable<Element> texts = find
-          .descendant(of: find.byWidget(element.widget), matching: find.byType(Text))
+          .descendant(
+            of: find.byWidget(element.widget),
+            matching: find.byType(Text),
+          )
           .evaluate();
       final String label = texts.isEmpty
           ? ''
@@ -99,23 +102,27 @@ void main() {
           expect(
             rect.left,
             greaterThanOrEqualTo(-tolerance),
-            reason: '$where: ${control.type} «${control.label}» '
+            reason:
+                '$where: ${control.type} «${control.label}» '
                 'выходит за левый край',
           );
           expect(
             rect.right,
             lessThanOrEqualTo(screen.width + tolerance),
-            reason: '$where: ${control.type} «${control.label}» '
+            reason:
+                '$where: ${control.type} «${control.label}» '
                 'выходит за правый край',
           );
           // Элементы, прокрученные за пределы экрана, не проверяем.
           final bool onScreen =
-              rect.top >= -tolerance && rect.bottom <= screen.height + tolerance;
+              rect.top >= -tolerance &&
+              rect.bottom <= screen.height + tolerance;
           if (onScreen) {
             expect(
               rect.height,
               greaterThanOrEqualTo(minTarget - tolerance),
-              reason: '$where: ${control.type} «${control.label}» '
+              reason:
+                  '$where: ${control.type} «${control.label}» '
                   'ниже минимальной цели нажатия',
             );
             if (control.type == IconButton ||
@@ -133,13 +140,15 @@ void main() {
           expect(
             control.rect.left,
             greaterThanOrEqualTo(-tolerance),
-            reason: '$where: ${control.type} «${control.label}» '
+            reason:
+                '$where: ${control.type} «${control.label}» '
                 'выходит за левый край',
           );
           expect(
             control.rect.right,
             lessThanOrEqualTo(screen.width + tolerance),
-            reason: '$where: ${control.type} «${control.label}» '
+            reason:
+                '$where: ${control.type} «${control.label}» '
                 'выходит за правый край',
           );
         }
