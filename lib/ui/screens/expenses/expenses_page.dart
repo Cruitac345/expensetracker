@@ -309,12 +309,12 @@ class _SortButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-    width: AuroraSizes.iconSizeSmallPlus,
-    height: AuroraSizes.iconSizeSmallPlus,
+    width: AuroraSizes.itemSizeExtraSmall,
+    height: AuroraSizes.itemSizeExtraSmall,
     child: PopupMenuButton<ExpenseSort>(
       tooltip: 'Сортировка',
       icon: const Icon(Icons.swap_vert),
-      iconSize: AuroraSizes.iconSizeSmall,
+      iconSize: AuroraSizes.iconSizeSmallPlus,
       color: context.palette.surface,
       shape: RoundedRectangleBorder(borderRadius: AuroraRadius.medium),
       onSelected: onSelected,
@@ -322,7 +322,7 @@ class _SortButton extends StatelessWidget {
         for (final ExpenseSort sort in ExpenseSort.values)
           PopupMenuItem<ExpenseSort>(
             value: sort,
-            height: AuroraSizes.iconSizeSmallPlus,
+            height: AuroraSizes.itemSizeExtraSmall,
             child: Row(
               children: <Widget>[
                 Icon(

@@ -465,8 +465,8 @@ class _PickerCell extends StatelessWidget {
       onTap: onTap,
       borderRadius: AuroraRadius.small,
       child: SizedBox(
-        width: AuroraSizes.iconSizeSmallPlus,
-        height: AuroraSizes.iconSizeSmallPlus,
+        width: AuroraSizes.itemSizeExtraSmall,
+        height: AuroraSizes.itemSizeExtraSmall,
         child: Center(child: child),
       ),
     ),

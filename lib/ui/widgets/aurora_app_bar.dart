@@ -220,11 +220,19 @@ class AuroraSearchField extends StatelessWidget implements PreferredSizeWidget {
                 : IconButton(
                     icon: const Icon(Icons.close),
                     tooltip: 'Очистить',
+                    constraints: const BoxConstraints.tightFor(
+                      width: AuroraSizes.itemSizeExtraSmall,
+                      height: AuroraSizes.itemSizeExtraSmall,
+                    ),
                     onPressed: () {
                       controller.clear();
                       onChanged('');
                     },
                   ),
+            suffixIconConstraints: const BoxConstraints.tightFor(
+              width: AuroraSizes.itemSizeExtraSmall,
+              height: AuroraSizes.itemSizeExtraSmall,
+            ),
             isDense: true,
           ),
         ),

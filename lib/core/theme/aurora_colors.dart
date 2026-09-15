@@ -15,6 +15,10 @@ import 'aurora_tokens.dart';
 /// * `highlight` — акцент для иконок, ссылок и индикаторов;
 /// * `highlightBackground` — заливка акцентных элементов;
 /// * `error` — цвет ошибки.
+///
+/// Фон тёмной схемы — не чистый чёрный, а `#0C0E13`: на нём карточки
+/// (`#171A21`) и поля ввода (`#232833`) читаются как отдельные плоскости,
+/// а контраст текста не режет глаз.
 @immutable
 class AuroraPalette {
   const AuroraPalette({
@@ -78,9 +82,9 @@ class AuroraPalette {
   /// Тёмная схема атмосферы Reef — основная для ОС Аврора.
   static const AuroraPalette dark = AuroraPalette(
     brightness: Brightness.dark,
-    background: Color(0xFF000000),
-    surface: Color(0xFF14161C),
-    surfaceVariant: Color(0xFF1E212A),
+    background: Color(0xFF0C0E13),
+    surface: Color(0xFF171A21),
+    surfaceVariant: Color(0xFF232833),
     accent: Color(0xFFA5D2FF),
     accentFill: Color(0xFF0072E5),
     onAccentFill: Color(0xFFFFFFFF),
