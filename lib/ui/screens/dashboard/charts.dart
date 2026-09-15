@@ -139,7 +139,7 @@ class MonthlyBarChart extends StatelessWidget {
                   BarChartRodData(
                     toY: totals[index].total,
                     width: totals.length > 8 ? 12 : 20,
-                    color: palette.primary,
+                    color: palette.accentFill,
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(AuroraSizes.paddingSmall),
                     ),
@@ -271,13 +271,16 @@ class CategoryBars extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: AuroraSizes.paddingSmall),
-                        Text(
-                          Formatters.money(item.total),
-                          style: text.bodyMedium,
+                        Flexible(
+                          child: Text(
+                            Formatters.money(item.total),
+                            style: text.bodyMedium,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         const SizedBox(width: AuroraSizes.paddingSmall),
-                        SizedBox(
-                          width: 44,
+                        Flexible(
                           child: Text(
                             '${(item.share * 100).round()}%',
                             style: text.bodySmall,
@@ -337,15 +340,18 @@ class ChartLegend extends StatelessWidget {
               onTap: onSelected == null ? null : () => onSelected!(item),
               borderRadius: AuroraRadius.small,
               child: Container(
-                height: AuroraSizes.itemSizeExtraSmall,
+                constraints: const BoxConstraints(
+                  minHeight: AuroraSizes.itemSizeExtraSmall,
+                ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: AuroraSizes.paddingSmall,
+                  vertical: AuroraSizes.paddingSmall,
                 ),
                 child: Row(
                   children: <Widget>[
                     Container(
-                      width: 12,
-                      height: 12,
+                      width: AuroraSizes.paddingMedium + AuroraSizes.module,
+                      height: AuroraSizes.paddingMedium + AuroraSizes.module,
                       decoration: BoxDecoration(
                         color: colorOf(item.categoryId),
                         shape: BoxShape.circle,
@@ -353,6 +359,7 @@ class ChartLegend extends StatelessWidget {
                     ),
                     const SizedBox(width: AuroraSizes.paddingMedium),
                     Expanded(
+                      flex: 3,
                       child: Text(
                         nameOf(item.categoryId),
                         style: text.bodyMedium,
@@ -360,10 +367,19 @@ class ChartLegend extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    Text(Formatters.money(item.total), style: text.bodyMedium),
                     const SizedBox(width: AuroraSizes.paddingSmall),
-                    SizedBox(
-                      width: 44,
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        Formatters.money(item.total),
+                        style: text.bodyMedium,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                    const SizedBox(width: AuroraSizes.paddingSmall),
+                    Flexible(
                       child: Text(
                         '${(item.share * 100).round()}%',
                         style: text.bodySmall,
@@ -373,7 +389,7 @@ class ChartLegend extends StatelessWidget {
                     if (onSelected != null)
                       Icon(
                         Icons.chevron_right,
-                        size: AuroraSizes.iconSizeExtraSmall,
+                        size: AuroraSizes.iconSizeSmall,
                         color: context.palette.textSecondary,
                       ),
                   ],

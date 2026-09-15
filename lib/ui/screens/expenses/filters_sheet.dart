@@ -177,7 +177,7 @@ class _FiltersSheetState extends State<_FiltersSheet> {
                             label: Text(category.name),
                             labelStyle: text.bodyMedium?.copyWith(
                               color: _categoryIds.contains(category.id)
-                                  ? palette.onPrimary
+                                  ? palette.onAccentFill
                                   : palette.textPrimary,
                             ),
                             showCheckmark: false,
@@ -213,7 +213,7 @@ class _FiltersSheetState extends State<_FiltersSheet> {
                               setState(() => _range = value),
                         ),
                         ActionChip(
-                          avatar: const Icon(Icons.date_range, size: 16),
+                          avatar: const Icon(Icons.date_range, size: AuroraSizes.iconSizeExtraSmall),
                           label: Text(
                             _range == null
                                 ? 'Произвольный период'
@@ -224,7 +224,7 @@ class _FiltersSheetState extends State<_FiltersSheet> {
                         ),
                         if (_range != null)
                           ActionChip(
-                            avatar: const Icon(Icons.close, size: 16),
+                            avatar: const Icon(Icons.close, size: AuroraSizes.iconSizeExtraSmall),
                             label: const Text('Убрать период'),
                             labelStyle: text.bodyMedium,
                             onPressed: () => setState(() => _range = null),
@@ -293,11 +293,11 @@ class _FiltersSheetState extends State<_FiltersSheet> {
                                 _methods.remove(method);
                               }
                             }),
-                            avatar: Icon(method.icon, size: 16),
+                            avatar: Icon(method.icon, size: AuroraSizes.iconSizeExtraSmall),
                             label: Text(method.label),
                             labelStyle: text.bodyMedium?.copyWith(
                               color: _methods.contains(method)
-                                  ? palette.onPrimary
+                                  ? palette.onAccentFill
                                   : palette.textPrimary,
                             ),
                             showCheckmark: false,
@@ -322,7 +322,7 @@ class _FiltersSheetState extends State<_FiltersSheet> {
                           label: const Text('Без командировки'),
                           labelStyle: text.bodyMedium?.copyWith(
                             color: _withoutTrip
-                                ? palette.onPrimary
+                                ? palette.onAccentFill
                                 : palette.textPrimary,
                           ),
                           showCheckmark: false,
@@ -339,7 +339,7 @@ class _FiltersSheetState extends State<_FiltersSheet> {
                             label: Text(trip.title),
                             labelStyle: text.bodyMedium?.copyWith(
                               color: _tripId == trip.id
-                                  ? palette.onPrimary
+                                  ? palette.onAccentFill
                                   : palette.textPrimary,
                             ),
                             showCheckmark: false,
@@ -401,7 +401,7 @@ class _RangeChip extends StatelessWidget {
       label: Text(label),
       labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
         color: isSelected
-            ? context.palette.onPrimary
+            ? context.palette.onAccentFill
             : context.palette.textPrimary,
       ),
       showCheckmark: false,

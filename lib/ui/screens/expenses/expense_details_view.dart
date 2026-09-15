@@ -217,7 +217,7 @@ class _DetailRow extends StatelessWidget {
         children: <Widget>[
           Icon(
             icon,
-            size: AuroraSizes.iconSizeExtraSmall,
+            size: AuroraSizes.iconSizeSmall,
             color: palette.textSecondary,
           ),
           const SizedBox(width: AuroraSizes.paddingMedium),

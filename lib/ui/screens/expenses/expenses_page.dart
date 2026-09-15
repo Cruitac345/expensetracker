@@ -229,7 +229,7 @@ class _ExpensesList extends StatelessWidget {
         margin,
         AuroraSizes.paddingMedium,
         margin,
-        AuroraSizes.itemSizeLarge,
+        AuroraSizes.itemSizeExtraLarge,
       ),
       itemCount: entries.length,
       separatorBuilder: (_, _) => const SizedBox(height: AuroraSizes.paddingSmall),
@@ -291,7 +291,7 @@ class _MonthHeader extends StatelessWidget {
           ),
           Text(
             Formatters.money(total),
-            style: text.titleSmall?.copyWith(color: context.palette.primary),
+            style: text.titleSmall?.copyWith(color: context.palette.accent),
           ),
         ],
       ),
@@ -312,7 +312,7 @@ class _SortButton extends StatelessWidget {
     child: PopupMenuButton<ExpenseSort>(
       tooltip: 'Сортировка',
       icon: const Icon(Icons.swap_vert),
-      iconSize: AuroraSizes.iconSizeExtraSmall,
+      iconSize: AuroraSizes.iconSizeSmall,
       color: context.palette.surface,
       shape: RoundedRectangleBorder(borderRadius: AuroraRadius.medium),
       onSelected: onSelected,
@@ -325,9 +325,9 @@ class _SortButton extends StatelessWidget {
               children: <Widget>[
                 Icon(
                   sort == current ? Icons.check : Icons.remove,
-                  size: AuroraSizes.iconSizeExtraSmall,
+                  size: AuroraSizes.iconSizeSmall,
                   color: sort == current
-                      ? context.palette.primary
+                      ? context.palette.accent
                       : Colors.transparent,
                 ),
                 const SizedBox(width: AuroraSizes.paddingMedium),

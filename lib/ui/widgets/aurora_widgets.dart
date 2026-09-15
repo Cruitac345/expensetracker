@@ -129,7 +129,7 @@ class AuroraStatTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuroraPalette palette = context.palette;
     final TextTheme text = Theme.of(context).textTheme;
-    final Color color = accent ?? palette.primary;
+    final Color color = accent ?? palette.accent;
 
     return Card(
       child: Padding(
@@ -141,7 +141,7 @@ class AuroraStatTile extends StatelessWidget {
             Row(
               children: <Widget>[
                 if (icon != null) ...<Widget>[
-                  Icon(icon, size: AuroraSizes.iconSizeExtraSmall, color: color),
+                  Icon(icon, size: AuroraSizes.iconSizeSmall, color: color),
                   const SizedBox(width: AuroraSizes.paddingSmall),
                 ],
                 Expanded(
@@ -233,7 +233,7 @@ class AuroraTag extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           if (icon != null) ...<Widget>[
-            Icon(icon, size: 14, color: tint),
+            Icon(icon, size: AuroraSizes.iconSizeExtraSmall, color: tint),
             const SizedBox(width: AuroraSizes.paddingSmall),
           ],
           Flexible(
@@ -275,7 +275,7 @@ Future<bool> auroraConfirm(
         TextButton(
           onPressed: () => Navigator.of(context).pop(true),
           style: TextButton.styleFrom(
-            foregroundColor: destructive ? palette.danger : palette.primary,
+            foregroundColor: destructive ? palette.danger : palette.accent,
           ),
           child: Text(confirmLabel),
         ),

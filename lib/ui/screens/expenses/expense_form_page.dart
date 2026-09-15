@@ -434,7 +434,7 @@ class _FieldRow extends StatelessWidget {
               Expanded(child: Text(label, style: text.bodyMedium)),
               Text(
                 value,
-                style: text.bodyMedium?.copyWith(color: palette.primary),
+                style: text.bodyMedium?.copyWith(color: palette.accent),
               ),
             ],
           ),
@@ -474,13 +474,13 @@ class _CategorySelector extends StatelessWidget {
                   : Icons.circle,
               size: 14,
               color: category.id == selectedId
-                  ? palette.onPrimary
+                  ? palette.onAccentFill
                   : AuroraPalette.chartColorAt(category.colorIndex),
             ),
             label: Text(category.name),
             labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: category.id == selectedId
-                  ? palette.onPrimary
+                  ? palette.onAccentFill
                   : palette.textPrimary,
             ),
             padding: const EdgeInsets.symmetric(
@@ -514,7 +514,7 @@ class _PaymentMethodSelector extends StatelessWidget {
               padding: const EdgeInsets.only(right: AuroraSizes.paddingSmall),
               child: Material(
                 color: method == selected
-                    ? palette.primary
+                    ? palette.accentFill
                     : palette.surfaceVariant,
                 borderRadius: AuroraRadius.small,
                 child: InkWell(
@@ -529,9 +529,9 @@ class _PaymentMethodSelector extends StatelessWidget {
                       children: <Widget>[
                         Icon(
                           method.icon,
-                          size: AuroraSizes.iconSizeExtraSmall,
+                          size: AuroraSizes.iconSizeSmall,
                           color: method == selected
-                              ? palette.onPrimary
+                              ? palette.onAccentFill
                               : palette.textSecondary,
                         ),
                         const SizedBox(height: AuroraSizes.paddingSmall),
@@ -542,7 +542,7 @@ class _PaymentMethodSelector extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: method == selected
-                                ? palette.onPrimary
+                                ? palette.onAccentFill
                                 : palette.textSecondary,
                           ),
                         ),
@@ -590,7 +590,7 @@ class _TripSelector extends StatelessWidget {
           label: const Text('Без командировки'),
           labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: selectedId == null
-                ? context.palette.onPrimary
+                ? context.palette.onAccentFill
                 : context.palette.textPrimary,
           ),
         ),
@@ -602,7 +602,7 @@ class _TripSelector extends StatelessWidget {
             label: Text(trip.title),
             labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: trip.id == selectedId
-                  ? context.palette.onPrimary
+                  ? context.palette.onAccentFill
                   : context.palette.textPrimary,
             ),
           ),

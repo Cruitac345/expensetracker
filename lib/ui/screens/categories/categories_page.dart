@@ -388,9 +388,9 @@ class _CategoryFormState extends State<_CategoryForm> {
                       onTap: () => setState(() => _iconKey = key),
                       child: Icon(
                         CategoryIcons.byKey(key),
-                        size: AuroraSizes.iconSizeExtraSmall,
+                        size: AuroraSizes.iconSizeSmall,
                         color: key == _iconKey
-                            ? context.palette.onPrimary
+                            ? context.palette.onAccentFill
                             : context.palette.textSecondary,
                       ),
                     ),
@@ -411,8 +411,8 @@ class _CategoryFormState extends State<_CategoryForm> {
                       color: AuroraPalette.chartColorAt(index),
                       onTap: () => setState(() => _colorIndex = index),
                       child: Container(
-                        width: AuroraSizes.iconSizeExtraSmall,
-                        height: AuroraSizes.iconSizeExtraSmall,
+                        width: AuroraSizes.iconSizeSmall,
+                        height: AuroraSizes.iconSizeSmall,
                         decoration: BoxDecoration(
                           color: AuroraPalette.chartColorAt(index),
                           shape: BoxShape.circle,

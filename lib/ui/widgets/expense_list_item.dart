@@ -47,7 +47,7 @@ class ExpenseListItem extends StatelessWidget {
     ];
 
     return Material(
-      color: selected ? palette.primary.withValues(alpha: 0.12) : palette.surface,
+      color: selected ? palette.accent.withValues(alpha: 0.12) : palette.surface,
       borderRadius: AuroraRadius.medium,
       child: InkWell(
         onTap: onTap,
@@ -67,6 +67,7 @@ class ExpenseListItem extends StatelessWidget {
               CategoryAvatar(category: category),
               const SizedBox(width: AuroraSizes.paddingMedium),
               Expanded(
+                flex: 3,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -97,7 +98,7 @@ class ExpenseListItem extends StatelessWidget {
                               AuroraTag(
                                 label: trip!.title,
                                 icon: Icons.work_outline,
-                                color: palette.primary,
+                                color: palette.accent,
                               ),
                             if (expense.hasReceipts)
                               AuroraTag(
@@ -112,35 +113,49 @@ class ExpenseListItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: AuroraSizes.paddingMedium),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    Formatters.money(expense.amount),
-                    style: text.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: AuroraSizes.paddingSmall),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Icon(
-                        expense.paymentMethod.icon,
-                        size: 14,
-                        color: palette.textSecondary,
-                      ),
-                      if (showDate) ...<Widget>[
-                        const SizedBox(width: AuroraSizes.paddingSmall),
-                        Text(
-                          Formatters.date(expense.date),
-                          style: text.bodySmall,
+              // Доли 3:2 не дают сумме «съесть» строку на узких экранах.
+              Expanded(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        Formatters.money(expense.amount),
+                        maxLines: 1,
+                        style: text.titleMedium?.copyWith(
+                          fontWeight: AuroraFontWeights.medium,
                         ),
+                      ),
+                    ),
+                    const SizedBox(height: AuroraSizes.paddingSmall),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Icon(
+                          expense.paymentMethod.icon,
+                          size: AuroraSizes.iconSizeExtraSmall,
+                          color: palette.textSecondary,
+                        ),
+                        if (showDate) ...<Widget>[
+                          const SizedBox(width: AuroraSizes.paddingSmall),
+                          Flexible(
+                            child: Text(
+                              Formatters.date(expense.date),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: text.bodySmall,
+                            ),
+                          ),
+                        ],
                       ],
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

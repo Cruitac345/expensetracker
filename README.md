@@ -102,25 +102,48 @@
 
 ## Интерфейс по гайдлайну ОС Аврора
 
-- **Панель приложения** — заголовок с подзаголовком, выровненный по левому
-  краю, кнопки-иконки 48×48 (`iconSizeSmallPlus`), поле поиска в развёрнутом
-  виде шириной не менее 300 dp.
+Дизайн-система приложения повторяет значения официального UI Kit
+[«Aurora Controls»](https://hub.mos.ru/auroraos/flutter/flutter-community-plugins/aurora-controls)
+(ветка `flutter-aurora-3.35.7`) — того же кита, что описан
+в [«Проектирование и дизайн»](https://developer.auroraos.ru/doc/5.1.1/ui_kit)
+и опубликован в [Figma](https://www.figma.com/community/file/1327649212960424543/5-ui-kit-aurora-os).
+Значения собраны в [`lib/core/theme/aurora_tokens.dart`](lib/core/theme/aurora_tokens.dart)
+и [`lib/core/theme/aurora_colors.dart`](lib/core/theme/aurora_colors.dart),
+компоненты не используют чисел помимо этих токенов.
+
+| Группа | Значения |
+| --- | --- |
+| Модуль сетки | 4 px, все размеры кратны ему |
+| Отступы | `paddingSmall` 4, `paddingMedium` 8, `paddingLarge` 16, поля страницы 16 |
+| Иконки | 16 / 20 / 32 (`iconSizeSmallPlus`) / 44 / 64 / 84 |
+| Элементы списка | 48 / 56 / 68 / 76 / 92 / 120, высота панели приложения 68 |
+| Шрифт | 12 / 14 / 16 / 19 / 21 / 26 / 28, интерлиньяж 1.25, начертания 400/500/700 |
+| Радиусы | 4 для кнопок и полей, 8 для карточек, 16 для модальных панелей |
+| Толщина линий | 2 |
+
+Цвета взяты из атмосферы Reef, которая в ОС Аврора используется по умолчанию:
+основной текст `#FFFFFF` (в светлой схеме `#000000`), второстепенный — он же
+с прозрачностью `AF`, акцент `#A5D2FF` / `#005EB5`, акцентная заливка
+`#0072E5` / `#0084FF`, ошибка `#FF4D4D` / `#F62929`.
+
+Остальное по гайдлайну:
+
+- **Панель приложения** — заголовок с подзаголовком по левому краю,
+  кнопки-иконки с целью нажатия 48×48 и иконкой 32, поле поиска
+  в развёрнутом виде шириной не менее 300 dp.
 - **Многопанельный режим** — на планшете и в альбомной ориентации список
   и детали показываются рядом, панели разделены сепаратором не шире 6 dp,
   панель разделов закреплена у левого края.
-- **Размерные токены** — отступы `paddingSmall/Medium/Large` (4/12/24),
-  высоты элементов `itemSize*`, радиусы 8/16/24. Магических чисел
-  в компонентах нет: см. [`lib/core/theme/aurora_tokens.dart`](lib/core/theme/aurora_tokens.dart).
-- **Типографика** — шкала референсного Flutter-приложения Авроры:
-  заголовки 44/30/24, титулы 20/18/14, текст 18/16/12, интерлиньяж 1.3.
-- **Схемы оформления** — тёмная (основная) и светлая, по умолчанию берётся
-  системная; переключается в настройках.
+- **Схемы оформления** — тёмная (основная для ОС Аврора) и светлая,
+  по умолчанию берётся системная, переключается в настройках.
 - **Иконка приложения** — суперэллипс с безопасной зоной, размеры
   86×86, 108×108, 128×128, 172×172 ([`tool/make_icons.py`](tool/make_icons.py)).
 
-Источники: [UI Kit ОС Аврора в Figma](https://www.figma.com/community/file/1327649212960424543/5-ui-kit-aurora-os)
-и раздел [«Проектирование и дизайн»](https://developer.auroraos.ru/doc/5.1.1/ui_kit)
-документации ОС Аврора.
+Сам пакет `aurora_controls` в зависимости не добавлен: он помечен как
+`aurora_specific_package` и требует `aurora_window_manager`, поэтому проект
+с ним не собрать и не протестировать вне Аврора SDK. При сборке на SDK его
+можно подключить и заменить собственные компоненты на `AuroraAppBar`,
+`AuroraButton` и `AuroraTextField` — токены темы совпадают.
 
 ## Формат CSV
 
@@ -184,25 +207,41 @@ lib/
 Доступ к хранилищу скрыт за интерфейсом `JsonStore`, что позволяет
 подменять его в тестах.
 
-## Сборка для ОС Аврора
+## Сборка и запуск на ОС Аврора
 
-Требуется Flutter для ОС Аврора (Flutter 3.35.7+) и Аврора Platform SDK;
-целевая версия ОС — 5.1.6+ (< 5.2).
+Нужны Аврора SDK, Аврора Platform SDK и сборка Flutter для ОС Аврора
+(3.35.7+); целевая версия ОС — 5.1.6+ (< 5.2). Среда разработки —
+Linux, в документации ОМП рекомендуется Ubuntu.
+
+Эмулятор ОС Аврора (x86_64) ставится вместе с Аврора SDK и запускается
+из VirtualBox либо из VS Code с расширением «Аврора».
 
 ```bash
 flutter-aurora pub get
 
-# armv7hl
-flutter-aurora build aurora --release --target-platform=aurora-arm
-# aarch64
-flutter-aurora build aurora --release --target-platform=aurora-arm64
-# x86_64
-flutter-aurora build aurora --release --target-platform=aurora-x64
+# подключение Аврора-устройств и эмулятора
+flutter-aurora config --enable-aurora-devices
+flutter-aurora aurora-devices add
+flutter-aurora devices
+
+# сборка, подпись ключом разработчика, установка и запуск
+flutter-aurora run
+
+# диагностика окружения
+flutter-aurora doctor
 ```
 
-Собранные RPM появляются в `build/aurora/<архитектура>/release/`.
-Подпись выполняется ключами разработчика, выданными «Открытой мобильной
-платформой», средствами Аврора Platform SDK:
+Сборка пакетов для трёх архитектур:
+
+```bash
+flutter-aurora build aurora --release --target-platform=aurora-arm    # armv7hl
+flutter-aurora build aurora --release --target-platform=aurora-arm64  # aarch64
+flutter-aurora build aurora --release --target-platform=aurora-x64    # x86_64
+```
+
+Готовые RPM появляются в `build/aurora/<архитектура>/release/`.
+Для распространения пакет подписывается ключами разработчика, выданными
+«Открытой мобильной платформой»:
 
 ```bash
 aurora-cli psdk sign --path ./build --key ./keys/regular_key.pem --cert ./keys/regular_cert.pem
@@ -210,18 +249,37 @@ aurora-cli psdk sign --path ./build --key ./keys/regular_key.pem --cert ./keys/r
 
 Реализации плагинов для Авроры (`path_provider_aurora`,
 `shared_preferences_aurora`, `file_selector_aurora`, `image_picker_aurora`)
-подключены в `pubspec.yaml`, дополнительных действий не требуется.
-Разрешения приложения (камера, галерея, документы, загрузки) объявлены
-в [`aurora/desktop/ru.auroraos.expense_tracker.desktop`](aurora/desktop/ru.auroraos.expense_tracker.desktop).
+подключены в `pubspec.yaml` и закреплены на согласованных тегах:
+`image_picker_aurora` требует именно `path_provider_aurora` 0.6.0
+и `file_selector_aurora` 0.0.5, поэтому версии подняты до максимально
+совместимых. Разрешения приложения (камера, галерея, документы, загрузки)
+объявлены в
+[`aurora/desktop/ru.auroraos.expense_tracker.desktop`](aurora/desktop/ru.auroraos.expense_tracker.desktop).
+
+**Про Android Studio.** Официального плагина ОС Аврора для Android Studio
+нет: ОМП поддерживает расширение для VS Code. В Android Studio можно писать
+код, но сборку и запуск на Авроре выполняет `flutter-aurora` из терминала,
+а Android-эмулятор для ОС Аврора не подходит — нужен эмулятор из Аврора SDK.
+Для быстрой проверки интерфейса и логики вне Авроры приложение запускается
+на обычном Flutter: `flutter run -d windows` или на Android-эмуляторе.
 
 ## Разработка и проверка
 
 ```bash
 flutter pub get
-dart analyze          # должно быть «No issues found!»
-flutter test          # модульные и виджет-тесты
-flutter run -d windows  # запуск на настольной платформе для отладки
+dart analyze          # ожидается «No issues found!»
+flutter test          # 100 тестов: логика, состояние, вёрстка
+flutter run -d windows
 ```
+
+Состав тестов:
+
+- разбор CSV, кодировки Windows-1251 и UTF-8, экспорт;
+- агрегация дашборда, фильтры и поиск;
+- операции состояния: траты, категории, командировки, импорт;
+- вёрстка — каждый экран проверяется на шести размерах экрана
+  (от 320×640 до планшета 1280×800, включая альбомную ориентацию)
+  и при системном шрифте 130 %, переполнения не допускаются.
 
 Вспомогательные команды:
 

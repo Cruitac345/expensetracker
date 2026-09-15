@@ -206,7 +206,7 @@ class _ImportPageState extends State<ImportPage> {
                   ),
                   _ResultRow(
                     icon: Icons.sell_outlined,
-                    color: palette.primary,
+                    color: palette.accent,
                     label: 'Новые категории',
                     value: result.newCategories.isEmpty
                         ? 'нет'
@@ -216,7 +216,7 @@ class _ImportPageState extends State<ImportPage> {
                   ),
                   _ResultRow(
                     icon: Icons.work_outline,
-                    color: palette.primary,
+                    color: palette.accent,
                     label: 'Новые командировки',
                     value: result.newTrips.isEmpty
                         ? 'нет'
@@ -309,7 +309,7 @@ class _ResultRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Icon(icon, size: AuroraSizes.iconSizeExtraSmall, color: color),
+          Icon(icon, size: AuroraSizes.iconSizeSmall, color: color),
           const SizedBox(width: AuroraSizes.paddingMedium),
           Expanded(
             child: Column(

@@ -353,10 +353,10 @@ class _TripBreakdown extends StatelessWidget {
                               trip == null
                                   ? Icons.person_outline
                                   : Icons.work_outline,
-                              size: AuroraSizes.iconSizeExtraSmall,
+                              size: AuroraSizes.iconSizeSmall,
                               color: trip == null
                                   ? palette.textSecondary
-                                  : palette.primary,
+                                  : palette.accent,
                             ),
                             const SizedBox(width: AuroraSizes.paddingMedium),
                             Expanded(
@@ -383,7 +383,7 @@ class _TripBreakdown extends StatelessWidget {
                             valueColor: AlwaysStoppedAnimation<Color>(
                               trip == null
                                   ? palette.textSecondary
-                                  : palette.primary,
+                                  : palette.accent,
                             ),
                           ),
                         ),
@@ -426,25 +426,38 @@ class _PaymentBreakdown extends StatelessWidget {
                 children: <Widget>[
                   Icon(
                     method.icon,
-                    size: AuroraSizes.iconSizeExtraSmall,
+                    size: AuroraSizes.iconSizeSmall,
                     color: palette.textSecondary,
                   ),
                   const SizedBox(width: AuroraSizes.paddingMedium),
-                  Expanded(child: Text(method.label, style: text.bodyMedium)),
-                  Text(
-                    Formatters.money(totals[method]!),
-                    style: text.bodyMedium,
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      method.label,
+                      style: text.bodyMedium,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   const SizedBox(width: AuroraSizes.paddingSmall),
-                  SizedBox(
-                    width: 44,
+                  Expanded(
+                    flex: 2,
                     child: Text(
-                      total == 0
-                          ? '0%'
-                          : '${(totals[method]! / total * 100).round()}%',
-                      style: text.bodySmall,
+                      Formatters.money(totals[method]!),
+                      style: text.bodyMedium,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.right,
                     ),
+                  ),
+                  const SizedBox(width: AuroraSizes.paddingSmall),
+                  Text(
+                    total == 0
+                        ? '0%'
+                        : '${(totals[method]! / total * 100).round()}%',
+                    style: text.bodySmall,
+                    maxLines: 1,
+                    textAlign: TextAlign.right,
                   ),
                 ],
               ),
@@ -488,7 +501,7 @@ class _PeriodButton extends StatelessWidget {
     child: PopupMenuButton<DashboardPeriod>(
       tooltip: 'Период',
       icon: const Icon(Icons.date_range),
-      iconSize: AuroraSizes.iconSizeExtraSmall,
+      iconSize: AuroraSizes.iconSizeSmall,
       color: context.palette.surface,
       shape: RoundedRectangleBorder(borderRadius: AuroraRadius.medium),
       onSelected: onSelected,
@@ -501,9 +514,9 @@ class _PeriodButton extends StatelessWidget {
               children: <Widget>[
                 Icon(
                   period == current ? Icons.check : Icons.remove,
-                  size: AuroraSizes.iconSizeExtraSmall,
+                  size: AuroraSizes.iconSizeSmall,
                   color: period == current
-                      ? context.palette.primary
+                      ? context.palette.accent
                       : Colors.transparent,
                 ),
                 const SizedBox(width: AuroraSizes.paddingMedium),

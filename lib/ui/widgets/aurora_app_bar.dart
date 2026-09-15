@@ -30,7 +30,7 @@ class AuroraAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(
-    AuroraSizes.appBarHeight + (bottom?.preferredSize.height ?? 0),
+    AuroraSizes.itemSizeHeader + (bottom?.preferredSize.height ?? 0),
   );
 
   @override
@@ -47,7 +47,7 @@ class AuroraAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SizedBox(
-              height: AuroraSizes.appBarHeight,
+              height: AuroraSizes.itemSizeHeader,
               child: Padding(
                 padding: EdgeInsets.only(
                   left: leading == null ? margin : AuroraSizes.paddingSmall,
@@ -122,16 +122,16 @@ class AuroraIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuroraPalette palette = context.palette;
     final Widget button = SizedBox(
-      width: AuroraSizes.iconSizeSmallPlus,
-      height: AuroraSizes.iconSizeSmallPlus,
+      width: AuroraSizes.itemSizeExtraSmall,
+      height: AuroraSizes.itemSizeExtraSmall,
       child: IconButton(
         onPressed: onPressed,
         tooltip: tooltip,
         icon: Icon(icon),
-        iconSize: AuroraSizes.iconSizeExtraSmall,
+        iconSize: AuroraSizes.iconSizeSmallPlus,
         style: IconButton.styleFrom(
-          foregroundColor: selected ? palette.onPrimary : palette.primary,
-          backgroundColor: selected ? palette.primary : Colors.transparent,
+          foregroundColor: selected ? palette.onAccentFill : palette.accent,
+          backgroundColor: selected ? palette.accentFill : Colors.transparent,
         ),
       ),
     );
@@ -150,7 +150,7 @@ class AuroraIconButton extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
             decoration: BoxDecoration(
-              color: palette.primary,
+              color: palette.accentFill,
               borderRadius: AuroraRadius.large,
             ),
             child: Text(
@@ -159,7 +159,7 @@ class AuroraIconButton extends StatelessWidget {
                 fontSize: 11,
                 height: 1.2,
                 fontWeight: FontWeight.bold,
-                color: palette.onPrimary,
+                color: palette.onAccentFill,
               ),
             ),
           ),

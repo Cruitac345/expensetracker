@@ -5,11 +5,11 @@ import 'package:flutter/services.dart';
 import 'aurora_colors.dart';
 import 'aurora_tokens.dart';
 
-/// Тема приложения по гайдлайну ОС Аврора.
+/// Тема приложения по дизайн-системе ОС Аврора.
 ///
-/// Типографическая шкала повторяет референс Open Mobile Platform для
-/// Flutter-приложений Авроры: заголовки 44/30/24, титулы 20/18/14,
-/// основной текст 18/16/12 с межстрочным интервалом 1.3.
+/// Типографическая шкала и размеры повторяют официальный UI Kit
+/// «Aurora Controls»: размеры шрифта 12/14/16/19/21/26/28, межстрочный
+/// интервал 1.25, начертания 400/500/700, радиус кнопок и полей 4.
 class AuroraTheme {
   const AuroraTheme._();
 
@@ -29,15 +29,13 @@ class AuroraTheme {
       canvasColor: palette.background,
       dividerColor: palette.divider,
       textTheme: textTheme,
-      // ОС Аврора использует Roboto как системную гарнитуру; на платформах
-      // без неё Flutter подставит системный шрифт.
       fontFamily: 'Roboto',
       colorScheme: ColorScheme(
         brightness: palette.brightness,
-        primary: palette.primary,
-        onPrimary: palette.onPrimary,
-        secondary: palette.secondary,
-        onSecondary: palette.onPrimary,
+        primary: palette.accentFill,
+        onPrimary: palette.onAccentFill,
+        secondary: palette.accent,
+        onSecondary: palette.onAccentFill,
         error: palette.danger,
         onError: const Color(0xFFFFFFFF),
         surface: palette.surface,
@@ -51,7 +49,7 @@ class AuroraTheme {
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        toolbarHeight: AuroraSizes.appBarHeight,
+        toolbarHeight: AuroraSizes.itemSizeHeader,
         systemOverlayStyle: palette.brightness == Brightness.dark
             ? SystemUiOverlayStyle.light
             : SystemUiOverlayStyle.dark,
@@ -72,14 +70,14 @@ class AuroraTheme {
         backgroundColor: palette.surface,
         surfaceTintColor: Colors.transparent,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: palette.surfaceVariant,
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: AuroraSizes.paddingMedium + AuroraSizes.paddingSmall,
+          horizontal: AuroraSizes.paddingLarge,
           vertical: AuroraSizes.paddingMedium + AuroraSizes.paddingSmall,
         ),
         hintStyle: textTheme.bodyMedium?.copyWith(color: palette.textSecondary),
@@ -94,7 +92,10 @@ class AuroraTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: AuroraRadius.small,
-          borderSide: BorderSide(color: palette.primary, width: 2),
+          borderSide: BorderSide(
+            color: palette.accent,
+            width: AuroraSizes.lineWidth,
+          ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: AuroraRadius.small,
@@ -102,77 +103,91 @@ class AuroraTheme {
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: AuroraRadius.small,
-          borderSide: BorderSide(color: palette.danger, width: 2),
+          borderSide: BorderSide(
+            color: palette.danger,
+            width: AuroraSizes.lineWidth,
+          ),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: palette.primary,
-          foregroundColor: palette.onPrimary,
+          backgroundColor: palette.accentFill,
+          foregroundColor: palette.onAccentFill,
           elevation: 0,
           minimumSize: const Size.fromHeight(AuroraSizes.itemSizeExtraSmall),
           padding: const EdgeInsets.symmetric(
             horizontal: AuroraSizes.paddingLarge,
           ),
-          textStyle: textTheme.titleMedium,
+          textStyle: textTheme.labelLarge,
           shape: RoundedRectangleBorder(borderRadius: AuroraRadius.small),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: palette.primary,
+          foregroundColor: palette.accent,
           minimumSize: const Size.fromHeight(AuroraSizes.itemSizeExtraSmall),
           padding: const EdgeInsets.symmetric(
             horizontal: AuroraSizes.paddingLarge,
           ),
-          side: BorderSide(color: palette.primary),
-          textStyle: textTheme.titleMedium,
+          side: BorderSide(
+            color: palette.accent,
+            width: AuroraSizes.lineWidth,
+          ),
+          textStyle: textTheme.labelLarge,
           shape: RoundedRectangleBorder(borderRadius: AuroraRadius.small),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: palette.primary,
-          textStyle: textTheme.titleMedium,
+          foregroundColor: palette.accent,
+          textStyle: textTheme.labelLarge,
           shape: RoundedRectangleBorder(borderRadius: AuroraRadius.small),
         ),
       ),
       iconButtonTheme: IconButtonThemeData(
         style: IconButton.styleFrom(
-          foregroundColor: palette.primary,
-          minimumSize: const Size.square(AuroraSizes.iconSizeSmallPlus),
+          foregroundColor: palette.accent,
+          minimumSize: const Size.square(AuroraSizes.itemSizeExtraSmall),
           shape: RoundedRectangleBorder(borderRadius: AuroraRadius.small),
         ),
       ),
       iconTheme: IconThemeData(
-        color: palette.primary,
-        size: AuroraSizes.iconSizeExtraSmall,
+        color: palette.accent,
+        size: AuroraSizes.iconSizeSmall,
       ),
       listTileTheme: ListTileThemeData(
-        iconColor: palette.primary,
+        iconColor: palette.accent,
         textColor: palette.textPrimary,
+        minVerticalPadding: AuroraSizes.paddingMedium,
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: AuroraSizes.paddingMedium,
+          horizontal: AuroraSizes.paddingLarge,
         ),
         shape: RoundedRectangleBorder(borderRadius: AuroraRadius.small),
       ),
       chipTheme: ChipThemeData(
         backgroundColor: palette.surfaceVariant,
-        selectedColor: palette.primary,
+        selectedColor: palette.accentFill,
         side: BorderSide(color: palette.divider),
-        labelStyle: textTheme.bodySmall,
-        shape: RoundedRectangleBorder(borderRadius: AuroraRadius.large),
+        labelStyle: textTheme.bodyMedium,
+        shape: RoundedRectangleBorder(borderRadius: AuroraRadius.small),
       ),
       switchTheme: SwitchThemeData(
         thumbColor: WidgetStateProperty.resolveWith(
           (Set<WidgetState> states) => states.contains(WidgetState.selected)
-              ? palette.primary
+              ? palette.onAccentFill
               : palette.textSecondary,
         ),
         trackColor: WidgetStateProperty.resolveWith(
           (Set<WidgetState> states) => states.contains(WidgetState.selected)
-              ? palette.primary.withValues(alpha: 0.35)
+              ? palette.accentFill
               : palette.surfaceVariant,
+        ),
+      ),
+      radioTheme: RadioThemeData(
+        fillColor: WidgetStateProperty.resolveWith(
+          (Set<WidgetState> states) => states.contains(WidgetState.selected)
+              ? palette.accent
+              : palette.textSecondary,
         ),
       ),
       snackBarTheme: SnackBarThemeData(
@@ -182,10 +197,10 @@ class AuroraTheme {
         shape: RoundedRectangleBorder(borderRadius: AuroraRadius.small),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: palette.primary,
-        foregroundColor: palette.onPrimary,
+        backgroundColor: palette.accentFill,
+        foregroundColor: palette.onAccentFill,
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: AuroraRadius.medium),
+        shape: RoundedRectangleBorder(borderRadius: AuroraRadius.small),
       ),
       dividerTheme: DividerThemeData(
         color: palette.divider,
@@ -193,65 +208,92 @@ class AuroraTheme {
         thickness: 1,
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: palette.primary,
+        color: palette.accent,
         linearTrackColor: palette.surfaceVariant,
       ),
     );
   }
 
+  /// Текстовая шкала «Aurora Controls», разложенная по ролям Material.
   static TextTheme _textTheme(AuroraPalette palette) {
-    const double lineHeight = 1.3;
+    const double height = AuroraFontSizes.lineHeight;
+
     return TextTheme(
       headlineLarge: TextStyle(
-        fontSize: 44,
-        fontWeight: FontWeight.bold,
+        fontSize: AuroraFontSizes.huge,
+        height: height,
+        letterSpacing: 0,
+        fontWeight: AuroraFontWeights.bold,
         color: palette.textPrimary,
       ),
       headlineMedium: TextStyle(
-        fontSize: 30,
-        fontWeight: FontWeight.bold,
+        fontSize: AuroraFontSizes.extraLarge,
+        height: height,
+        letterSpacing: 0,
+        fontWeight: AuroraFontWeights.bold,
         color: palette.textPrimary,
       ),
       headlineSmall: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
+        fontSize: AuroraFontSizes.large,
+        height: height,
+        letterSpacing: 0,
+        fontWeight: AuroraFontWeights.bold,
         color: palette.textPrimary,
       ),
       titleLarge: TextStyle(
-        fontSize: 20,
-        height: lineHeight,
-        fontWeight: FontWeight.w500,
+        fontSize: AuroraFontSizes.large,
+        height: height,
+        letterSpacing: 0,
+        fontWeight: AuroraFontWeights.medium,
         color: palette.textPrimary,
       ),
       titleMedium: TextStyle(
-        fontSize: 18,
-        height: lineHeight,
+        fontSize: AuroraFontSizes.medium,
+        height: height,
+        letterSpacing: 0,
+        fontWeight: AuroraFontWeights.regular,
         color: palette.textPrimary,
       ),
       titleSmall: TextStyle(
-        fontSize: 14,
-        height: lineHeight,
+        fontSize: AuroraFontSizes.extraSmall,
+        height: height,
+        letterSpacing: 0,
+        fontWeight: AuroraFontWeights.regular,
         color: palette.textSecondary,
       ),
       bodyLarge: TextStyle(
-        fontSize: 18,
-        height: lineHeight,
+        fontSize: AuroraFontSizes.medium,
+        height: height,
+        letterSpacing: 0,
+        fontWeight: AuroraFontWeights.regular,
         color: palette.textPrimary,
       ),
       bodyMedium: TextStyle(
-        fontSize: 16,
-        height: lineHeight,
+        fontSize: AuroraFontSizes.small,
+        height: height,
+        letterSpacing: 0,
+        fontWeight: AuroraFontWeights.regular,
         color: palette.textPrimary,
       ),
       bodySmall: TextStyle(
-        fontSize: 12,
-        height: lineHeight,
+        fontSize: AuroraFontSizes.tiny,
+        height: height,
+        letterSpacing: 0,
+        fontWeight: AuroraFontWeights.regular,
         color: palette.textSecondary,
       ),
       labelLarge: TextStyle(
-        fontSize: 16,
-        height: lineHeight,
-        fontWeight: FontWeight.w500,
+        fontSize: AuroraFontSizes.small,
+        height: height,
+        letterSpacing: 0,
+        fontWeight: AuroraFontWeights.medium,
+        color: palette.textPrimary,
+      ),
+      labelMedium: TextStyle(
+        fontSize: AuroraFontSizes.extraSmall,
+        height: height,
+        letterSpacing: 0,
+        fontWeight: AuroraFontWeights.medium,
         color: palette.textPrimary,
       ),
     );

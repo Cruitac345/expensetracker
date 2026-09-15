@@ -52,23 +52,25 @@ class _HomeShellState extends State<HomeShell> {
     final AppSection? selected = await showModalBottomSheet<AppSection>(
       context: context,
       builder: (BuildContext context) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const SizedBox(height: AuroraSizes.paddingMedium),
-            for (final AppSection section in AppSection.values)
-              ListTile(
-                leading: Icon(section.icon),
-                title: Text(
-                  section.title,
-                  style: Theme.of(context).textTheme.bodyLarge,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const SizedBox(height: AuroraSizes.paddingMedium),
+              for (final AppSection section in AppSection.values)
+                ListTile(
+                  leading: Icon(section.icon),
+                  title: Text(
+                    section.title,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  selected: section == _section,
+                  minVerticalPadding: AuroraSizes.paddingMedium,
+                  onTap: () => Navigator.of(context).pop(section),
                 ),
-                selected: section == _section,
-                minVerticalPadding: AuroraSizes.paddingMedium,
-                onTap: () => Navigator.of(context).pop(section),
-              ),
-            const SizedBox(height: AuroraSizes.paddingMedium),
-          ],
+              const SizedBox(height: AuroraSizes.paddingMedium),
+            ],
+          ),
         ),
       ),
     );
@@ -196,7 +198,7 @@ class _NavigationItem extends StatelessWidget {
 
     return Material(
       color: selected
-          ? palette.primary.withValues(alpha: 0.14)
+          ? palette.accent.withValues(alpha: 0.14)
           : Colors.transparent,
       borderRadius: AuroraRadius.small,
       child: InkWell(
@@ -211,15 +213,15 @@ class _NavigationItem extends StatelessWidget {
             children: <Widget>[
               Icon(
                 section.icon,
-                size: AuroraSizes.iconSizeExtraSmall,
-                color: selected ? palette.primary : palette.textSecondary,
+                size: AuroraSizes.iconSizeSmall,
+                color: selected ? palette.accent : palette.textSecondary,
               ),
               const SizedBox(width: AuroraSizes.paddingMedium),
               Expanded(
                 child: Text(
                   section.title,
                   style: text.bodyMedium?.copyWith(
-                    color: selected ? palette.primary : palette.textPrimary,
+                    color: selected ? palette.accent : palette.textPrimary,
                     fontWeight: selected ? FontWeight.w500 : FontWeight.normal,
                   ),
                   maxLines: 1,

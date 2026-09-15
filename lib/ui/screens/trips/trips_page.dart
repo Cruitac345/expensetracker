@@ -123,7 +123,7 @@ class _TripsPageState extends State<TripsPage> {
               margin,
               AuroraSizes.paddingMedium,
               margin,
-              AuroraSizes.itemSizeLarge,
+              AuroraSizes.itemSizeExtraLarge,
             ),
             itemCount: trips.length,
             separatorBuilder: (_, _) =>
@@ -210,7 +210,7 @@ class TripDetailsView extends StatelessWidget {
         margin,
         AuroraSizes.paddingMedium,
         margin,
-        AuroraSizes.itemSizeLarge,
+        AuroraSizes.itemSizeExtraLarge,
       ),
       children: <Widget>[
         Text(trip.title, style: text.headlineSmall),
@@ -225,7 +225,7 @@ class TripDetailsView extends StatelessWidget {
             children: <Widget>[
               Icon(
                 Icons.place_outlined,
-                size: AuroraSizes.iconSizeExtraSmall,
+                size: AuroraSizes.iconSizeSmall,
                 color: context.palette.textSecondary,
               ),
               const SizedBox(width: AuroraSizes.paddingSmall),
@@ -341,7 +341,7 @@ class _TripTile extends StatelessWidget {
 
     return Material(
       color: selected
-          ? palette.primary.withValues(alpha: 0.12)
+          ? palette.accent.withValues(alpha: 0.12)
           : palette.surface,
       borderRadius: AuroraRadius.medium,
       child: InkWell(
@@ -358,11 +358,11 @@ class _TripTile extends StatelessWidget {
                 width: AuroraSizes.itemSizeExtraSmall,
                 height: AuroraSizes.itemSizeExtraSmall,
                 decoration: BoxDecoration(
-                  color: palette.primary.withValues(alpha: 0.16),
+                  color: palette.accent.withValues(alpha: 0.16),
                   borderRadius: AuroraRadius.small,
                 ),
                 alignment: Alignment.center,
-                child: Icon(Icons.work_outline, color: palette.primary),
+                child: Icon(Icons.work_outline, color: palette.accent),
               ),
               const SizedBox(width: AuroraSizes.paddingMedium),
               Expanded(
@@ -383,7 +383,7 @@ class _TripTile extends StatelessWidget {
                     Text(
                       '${Formatters.plural(count, 'трата', 'траты', 'трат')} '
                       'на ${Formatters.money(total)}',
-                      style: text.bodySmall?.copyWith(color: palette.primary),
+                      style: text.bodySmall?.copyWith(color: palette.accent),
                     ),
                   ],
                 ),
