@@ -256,6 +256,31 @@ aurora-cli psdk sign --path ./build --key ./keys/regular_key.pem --cert ./keys/r
 объявлены в
 [`aurora/desktop/ru.auroraos.expense_tracker.desktop`](aurora/desktop/ru.auroraos.expense_tracker.desktop).
 
+### Если рабочая машина на Windows
+
+Аврора SDK (BT) 5.2.1 ставится на Windows (нужны Docker, Git и около 45 ГБ
+на диске) и приносит с собой эмулятор ОС Аврора на QEMU. А вот «Flutter для
+ОС Аврора» собирается только под Linux и macOS, поэтому тулчейн ставится
+в WSL2:
+
+1. В Windows: Docker Desktop, затем Аврора SDK (BT) — из него запускается
+   эмулятор.
+2. Включить зеркальную сеть WSL, чтобы из Ubuntu был виден эмулятор.
+   В `C:\Users\<имя>\.wslconfig`:
+
+   ```ini
+   [wsl2]
+   networkingMode=mirrored
+   ```
+
+   После правки — `wsl --shutdown`.
+3. В Ubuntu (`wsl --install -d Ubuntu-24.04`): распаковать «Flutter для ОС
+   Аврора» и Аврора Platform SDK, добавить `flutter-aurora` в `PATH`,
+   проверить `flutter-aurora doctor`.
+4. Зарегистрировать эмулятор как устройство и запустить приложение
+   (см. команды выше). Эмулятор x86_64, поэтому при ручной сборке нужна
+   цель `--target-platform=aurora-x64`.
+
 **Про Android Studio.** Официального плагина ОС Аврора для Android Studio
 нет: ОМП поддерживает расширение для VS Code. В Android Studio можно писать
 код, но сборку и запуск на Авроре выполняет `flutter-aurora` из терминала,
