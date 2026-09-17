@@ -209,84 +209,116 @@ lib/
 
 ## Сборка и запуск на ОС Аврора
 
-Нужны Аврора SDK, Аврора Platform SDK и сборка Flutter для ОС Аврора
-(3.35.7+); целевая версия ОС — 5.1.6+ (< 5.2). Среда разработки —
-Linux, в документации ОМП рекомендуется Ubuntu.
+Проверено на связке: Windows 11 → WSL2 (Ubuntu 26.04) → Flutter для ОС Аврора
+3.41.4, Аврора Platform SDK 5.2.1 и эмулятор ОС Аврора 5.2.1 (QEMU).
+Приложение собирается в RPM, устанавливается на эмулятор и запускается
+в песочнице sailjail.
 
-Эмулятор ОС Аврора (x86_64) ставится вместе с Аврора SDK и запускается
-из VirtualBox либо из VS Code с расширением «Аврора».
+### Что поставить
 
-```bash
-flutter-aurora pub get
+Всё, кроме Windows-части, живёт внутри WSL2 — сборки «Flutter для ОС Аврора»
+и Platform SDK выпускаются только для Linux и macOS.
 
-# подключение Аврора-устройств и эмулятора
-flutter-aurora config --enable-aurora-devices
-flutter-aurora aurora-devices add
-flutter-aurora devices
-
-# сборка, подпись ключом разработчика, установка и запуск
-flutter-aurora run
-
-# диагностика окружения
-flutter-aurora doctor
-```
-
-Сборка пакетов для трёх архитектур:
-
-```bash
-flutter-aurora build aurora --release --target-platform=aurora-arm    # armv7hl
-flutter-aurora build aurora --release --target-platform=aurora-arm64  # aarch64
-flutter-aurora build aurora --release --target-platform=aurora-x64    # x86_64
-```
-
-Готовые RPM появляются в `build/aurora/<архитектура>/release/`.
-Для распространения пакет подписывается ключами разработчика, выданными
-«Открытой мобильной платформой»:
-
-```bash
-aurora-cli psdk sign --path ./build --key ./keys/regular_key.pem --cert ./keys/regular_cert.pem
-```
-
-Реализации плагинов для Авроры (`path_provider_aurora`,
-`shared_preferences_aurora`, `file_selector_aurora`, `image_picker_aurora`)
-подключены в `pubspec.yaml` и закреплены на согласованных тегах:
-`image_picker_aurora` требует именно `path_provider_aurora` 0.6.0
-и `file_selector_aurora` 0.0.5, поэтому версии подняты до максимально
-совместимых. Разрешения приложения (камера, галерея, документы, загрузки)
-объявлены в
-[`aurora/desktop/ru.auroraos.expense_tracker.desktop`](aurora/desktop/ru.auroraos.expense_tracker.desktop).
-
-### Если рабочая машина на Windows
-
-Аврора SDK (BT) 5.2.1 ставится на Windows (нужны Docker, Git и около 45 ГБ
-на диске) и приносит с собой эмулятор ОС Аврора на QEMU. А вот «Flutter для
-ОС Аврора» собирается только под Linux и macOS, поэтому тулчейн ставится
-в WSL2:
-
-1. В Windows: Docker Desktop, затем Аврора SDK (BT) — из него запускается
-   эмулятор.
-2. Включить зеркальную сеть WSL, чтобы из Ubuntu был виден эмулятор.
-   В `C:\Users\<имя>\.wslconfig`:
+1. **WSL2 с Ubuntu** и зеркальный режим сети. В `C:\Users\<имя>\.wslconfig`:
 
    ```ini
    [wsl2]
    networkingMode=mirrored
+   dnsTunneling=true
+   autoProxy=true
    ```
 
-   После правки — `wsl --shutdown`.
-3. В Ubuntu (`wsl --install -d Ubuntu-24.04`): распаковать «Flutter для ОС
-   Аврора» и Аврора Platform SDK, добавить `flutter-aurora` в `PATH`,
-   проверить `flutter-aurora doctor`.
-4. Зарегистрировать эмулятор как устройство и запустить приложение
-   (см. команды выше). Эмулятор x86_64, поэтому при ручной сборке нужна
-   цель `--target-platform=aurora-x64`.
+   Затем `wsl --shutdown`. Без зеркального режима из WSL не видно gitlab.com
+   и pub.dev, если на Windows работает VPN.
 
-**Про Android Studio.** Официального плагина ОС Аврора для Android Studio
-нет: ОМП поддерживает расширение для VS Code. В Android Studio можно писать
-код, но сборку и запуск на Авроре выполняет `flutter-aurora` из терминала,
-а Android-эмулятор для ОС Аврора не подходит — нужен эмулятор из Аврора SDK.
-Для быстрой проверки интерфейса и логики вне Авроры приложение запускается
-на обычном Flutter: `flutter run -d windows` или на Android-эмуляторе.
+2. **Доступ к KVM** для эмулятора — один раз от root:
+
+   ```bash
+   wsl -d Ubuntu -u root -- usermod -aG kvm <пользователь>
+   ```
+
+3. **Архиваторы** в Ubuntu: `sudo apt install bzip2 p7zip-full xz-utils`.
+
+4. **Flutter для ОС Аврора** — `flutter_aurora_linux_3.41.4.tar.gz`
+   со страницы загрузок портала; распаковать и добавить `bin` в `PATH`.
+
+5. **Аврора Platform SDK** — chroot, tooling и target нужной архитектуры:
+
+   ```bash
+   PSDK=$HOME/AuroraPlatformSDK/sdks/aurora_psdk
+   sudo mkdir -p "$PSDK"
+   sudo tar --numeric-owner -p -xjf Aurora_OS-5.2.1.200-Aurora_Platform_SDK_Chroot-x86_64.tar.bz2 -C "$PSDK"
+   sudo "$PSDK/sdk-chroot" -u $USER sdk-assistant tooling create -y AuroraOS-5.2.1.200-base Aurora_OS-...-Tooling-x86_64.tar.7z
+   sudo "$PSDK/sdk-chroot" -u $USER sdk-assistant target create -y AuroraOS-5.2.1.200-base-x86_64 Aurora_OS-...-Target-x86_64.tar.7z
+   ```
+
+   Владельца распакованного chroot менять нельзя — иначе внутри слетает
+   setuid у `sudo` и сборка падает.
+
+6. **Правила sudoers** — их создаёт `flutter config`, но в WSL проще завести
+   вручную от root (файлы должны быть читаемы пользователю):
+
+   ```bash
+   PSDK=/home/<пользователь>/AuroraPlatformSDK/sdks/aurora_psdk
+   echo "<пользователь> ALL=(ALL) NOPASSWD:SETENV: $PSDK/sdk-chroot" > /etc/sudoers.d/sdk-chroot
+   echo "<пользователь> ALL=(ALL) NOPASSWD:SETENV: $PSDK" > /etc/sudoers.d/mer-sdk-chroot
+   chmod 0644 /etc/sudoers.d/sdk-chroot /etc/sudoers.d/mer-sdk-chroot
+   ```
+
+   Тег `SETENV` обязателен: без него инструмент не может передать
+   `SSH_AUTH_SOCK` и не находит цели сборки.
+
+7. **Эмулятор** — `standalone-emulator-5.2.1.200-linux-x86_64.7z`:
+   распаковать и выполнить `./install.sh --add-alias`. Эмулятор приносит
+   свой QEMU, отдельный пакет ставить не нужно.
+
+### Сборка и запуск
+
+```bash
+flutter config --aurora-psdk-dir=$HOME/AuroraPlatformSDK/sdks/aurora_psdk
+flutter doctor
+
+flutter pub get
+flutter build aurora --release --target-platform=aurora-x64    # для эмулятора
+flutter build aurora --release --target-platform=aurora-arm64  # aarch64
+flutter build aurora --release --target-platform=aurora-arm    # armv7hl
+
+adt emulator start
+adt deploy build/aurora/psdk_5.2.1/aurora-x64/release/RPMS/*.rpm
+adt app start <идентификатор приложения>
+```
+
+RPM появляются в `build/aurora/psdk_<версия>/<архитектура>/release/RPMS/`.
+Для распространения пакет подписывается ключами разработчика, выданными
+«Открытой мобильной платформой».
+
+### Платформенная часть
+
+Каталог `aurora/` содержит иконки приложения, `desktop`-файл и
+spec-файл RPM. `CMakeLists.txt`, `main.cpp` и `flutter/` тулчейн генерирует
+при каждой сборке, поэтому они в `.gitignore`.
+
+Первая строка сгенерированных `desktop` и spec-файлов — пометка
+«This file will be recreated at the next build»: пока она на месте, тулчейн
+перезаписывает файл. В репозитории эта строка удалена, поэтому название
+приложения, описание и разрешения (каталоги пользователя, камера, съёмные
+носители) зафиксированы. Если тулчейн дополнительно создаст пару файлов
+с организацией по умолчанию (`com.example.*`), перед упаковкой их нужно
+удалить — иначе идентификатор пакета возьмётся из них.
+
+Реализации плагинов для Авроры отдельно подключать не нужно: тулчейн
+использует pub-репозиторий ОМП, где `image_picker`, `file_selector`,
+`path_provider`, `shared_preferences` и `camera` собраны с зависимостями
+`*_aurora`. Поэтому ограничения версий в `pubspec.yaml` заданы так, чтобы
+подходили и сборки ОМП, и обычные пакеты с pub.dev.
+
+### Про Android Studio
+
+Официального плагина ОС Аврора для Android Studio нет — ОМП поддерживает
+расширение для VS Code. В Android Studio можно писать код, но сборку
+и запуск выполняет `flutter` из дистрибутива для Авроры, а Android-эмулятор
+для ОС Аврора не подходит. Для быстрой проверки интерфейса вне Авроры
+приложение запускается обычным Flutter: `flutter run -d windows`.
 
 ## Разработка и проверка
 

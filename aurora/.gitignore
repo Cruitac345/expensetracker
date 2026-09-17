@@ -1,1 +1,4 @@
+# Генерируется тулчейном ОС Аврора при сборке.
 /flutter
+CMakeLists.txt
+main.cpp
