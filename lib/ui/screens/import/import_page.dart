@@ -1,4 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +17,7 @@ import '../../../data/services/text_decoder.dart';
 import '../../../state/app_state.dart';
 import '../../widgets/aurora_app_bar.dart';
 import '../../widgets/aurora_widgets.dart';
+import 'device_files_sheet.dart';
 
 /// Импорт трат из локальных CSV-файлов.
 class ImportPage extends StatefulWidget {
@@ -31,7 +35,6 @@ class _ImportPageState extends State<ImportPage> {
   bool _busy = false;
 
   Future<void> _pickFile() async {
-    final AppState state = context.read<AppState>();
     setState(() => _busy = true);
     try {
       const XTypeGroup group = XTypeGroup(
@@ -42,20 +45,38 @@ class _ImportPageState extends State<ImportPage> {
       final XFile? file = await openFile(
         acceptedTypeGroups: const <XTypeGroup>[group],
       );
-      if (file == null) {
+      if (file == null || !mounted) {
         return;
       }
-      final String content = TextDecoder.decode(await file.readAsBytes());
-      final CsvImportResult result = CsvImportService(
-        idGenerator: state.newId,
-      ).parse(content, categories: state.categories, trips: state.trips);
-      if (!mounted) {
-        return;
+      _load(name: file.name, bytes: await file.readAsBytes());
+    } on Exception {
+      // Системный селектор доступен не на всех сборках ОС Аврора:
+      // тогда предлагаем выбрать файл из каталогов устройства сами.
+      if (mounted) {
+        await _pickFromDevice(afterFailure: true);
       }
-      setState(() {
-        _result = result;
-        _fileName = file.name;
-      });
+    } finally {
+      if (mounted) {
+        setState(() => _busy = false);
+      }
+    }
+  }
+
+  /// Запасной выбор файла — список CSV в каталогах устройства.
+  Future<void> _pickFromDevice({bool afterFailure = false}) async {
+    if (afterFailure) {
+      auroraNotify(
+        context,
+        'Системный выбор файлов недоступен, показываем файлы устройства',
+      );
+    }
+    final File? file = await showDeviceCsvFiles(context);
+    if (file == null || !mounted) {
+      return;
+    }
+    setState(() => _busy = true);
+    try {
+      _load(name: file.uri.pathSegments.last, bytes: await file.readAsBytes());
     } on Exception catch (error) {
       if (mounted) {
         auroraNotify(context, 'Не удалось прочитать файл: $error');
@@ -65,6 +86,22 @@ class _ImportPageState extends State<ImportPage> {
         setState(() => _busy = false);
       }
     }
+  }
+
+  /// Разбирает содержимое файла и показывает результат перед импортом.
+  void _load({required String name, required Uint8List bytes}) {
+    final AppState state = context.read<AppState>();
+    final CsvImportResult result = CsvImportService(
+      idGenerator: state.newId,
+    ).parse(
+      TextDecoder.decode(bytes),
+      categories: state.categories,
+      trips: state.trips,
+    );
+    setState(() {
+      _result = result;
+      _fileName = name;
+    });
   }
 
   Future<void> _apply() async {
@@ -179,6 +216,12 @@ class _ImportPageState extends State<ImportPage> {
                     icon: const Icon(Icons.folder_open),
                     label: const Text('Выбрать CSV-файл'),
                   ),
+                  const SizedBox(height: AuroraSizes.paddingSmall),
+                  TextButton.icon(
+                    onPressed: _busy ? null : () => _pickFromDevice(),
+                    icon: const Icon(Icons.storage_outlined),
+                    label: const Text('Показать файлы устройства'),
+                  ),
                 ],
               ),
             )
@@ -266,8 +309,10 @@ class _ImportPageState extends State<ImportPage> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: _busy || result.isEmpty ? null : _apply,
-                          child: Text(
-                            'Импортировать ${result.expenses.length}',
+                          child: const Text(
+                            'Импортировать',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ),

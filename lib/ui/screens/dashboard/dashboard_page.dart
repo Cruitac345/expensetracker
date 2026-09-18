@@ -59,15 +59,7 @@ class _DashboardPageState extends State<DashboardPage> {
     };
   }
 
-  String get _periodLabel {
-    final DateRange? range = _range;
-    if (range == null) {
-      return 'Всё время';
-    }
-    return Formatters.range(range.start, range.end);
-  }
-
-  /// Тот же период в коротком виде — для подзаголовка панели приложения.
+  /// Период в коротком виде — для подзаголовков панели приложения.
   String get _periodLabelShort {
     final DateRange? range = _range;
     if (range == null) {
@@ -106,7 +98,7 @@ class _DashboardPageState extends State<DashboardPage> {
         builder: (_) => CategoryExpensesPage(
           categoryId: categoryId,
           range: _range,
-          periodLabel: _periodLabel,
+          periodLabel: _periodLabelShort,
         ),
       ),
     );

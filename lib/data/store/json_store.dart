@@ -31,7 +31,10 @@ class FileJsonStore implements JsonStore {
 
   @override
   Future<Directory> dataDirectory() async {
-    final Directory root = _root ??= await getApplicationDocumentsDirectory();
+    // Каталог данных приложения, а не пользовательские «Документы»:
+    // на ОС Аврора documents-каталог общий для всех приложений, а support —
+    // приватный (~/.local/share/<организация>/<приложение>).
+    final Directory root = _root ??= await getApplicationSupportDirectory();
     if (!root.existsSync()) {
       await root.create(recursive: true);
     }
