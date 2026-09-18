@@ -46,3 +46,6 @@ app.*.map.json
 
 # Сборочные каталоги ОС Аврора
 /aurora/flutter/
+
+# Отчёты несовпавших golden-снимков
+**/failures/

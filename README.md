@@ -324,7 +324,8 @@ spec-файл RPM. `CMakeLists.txt`, `main.cpp` и `flutter/` тулчейн г�
 расширение для VS Code. В Android Studio можно писать код, но сборку
 и запуск выполняет `flutter` из дистрибутива для Авроры, а Android-эмулятор
 для ОС Аврора не подходит. Для быстрой проверки интерфейса вне Авроры
-приложение запускается обычным Flutter: `flutter run -d windows`.
+приложение запускается на Android-эмуляторе (`flutter run -d <устройство>`)
+или проверяется тестами вёрстки, которые снимают экраны без устройства.
 
 ## Разработка и проверка
 
@@ -332,7 +333,6 @@ spec-файл RPM. `CMakeLists.txt`, `main.cpp` и `flutter/` тулчейн г�
 flutter pub get
 dart analyze          # ожидается «No issues found!»
 flutter test          # 118 тестов: логика, состояние, вёрстка, кнопки
-flutter run -d windows
 ```
 
 Состав тестов:

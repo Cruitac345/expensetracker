@@ -16,8 +16,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
-
   # Состояние
   provider: ^6.1.0
 
@@ -41,7 +39,6 @@ dependencies:
   fl_chart: ^1.2.0
 
   uuid: ^4.5.0
-  collection: ^1.19.0
 
 
 dev_dependencies:
