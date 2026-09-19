@@ -4,6 +4,12 @@ publish_to: 'none'
 
 version: 1.0.0+1
 
+# Читает тулчейн ОС Аврора: из них складывается идентификатор пакета
+# ru.auroraos.expense_tracker и поле License в RPM. Без них берутся
+# значения по умолчанию — com.example и Proprietary.
+organization: ru.auroraos
+license: BSD-3-Clause
+
 environment:
   # Нижняя граница — Dart из Flutter для ОС Аврора 3.41.4 (Dart 3.11.1).
   sdk: '>=3.11.0 <4.0.0'
