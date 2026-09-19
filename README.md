@@ -296,6 +296,8 @@ adt app start <идентификатор приложения>
 
 RPM появляются в `build/aurora/psdk_<версия>/<архитектура>/release/RPMS/`
 под именем `ru.auroraos.expense_tracker-<версия>-1.<архитектура>.rpm`.
+Собранный набор из трёх пакетов (`x86_64`, `aarch64`, `armv7hl`) лежит
+в каталоге `dist/`; он не под контролем версий.
 
 Для распространения пакет подписывается ключами разработчика, выданными
 «Открытой мобильной платформой». Подпись накладывается уже на готовый файл,
@@ -303,9 +305,13 @@ RPM появляются в `build/aurora/psdk_<версия>/<архитект�
 
 ```bash
 PSDK=$HOME/AuroraPlatformSDK/sdks/aurora_psdk
-sudo "$PSDK/sdk-chroot" -u $USER rpmsign-external sign   --key <ключ.pem> --cert <сертификат.pem> <пакет>.rpm
-rpm -qpi <пакет>.rpm | grep Signature   # проверка
+sudo "$PSDK/sdk-chroot" -u $USER rpmsign-external sign   --key <ключ.pem> --cert <сертификат.pem> -R <каталог с пакетами>
+sudo "$PSDK/sdk-chroot" -u $USER rpmsign-external verify <пакет>.rpm
 ```
+
+Ключ `-R` подписывает все `*.rpm` в каталоге. Если закрытый ключ
+зашифрован, пароль передаётся переменной окружения `KEY_PASSPHRASE`,
+иначе инструмент спросит его в терминале.
 
 ### Платформенная часть
 
