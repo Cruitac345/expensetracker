@@ -27,17 +27,14 @@ class CsvCandidate {
   final DateTime modified;
 }
 
-/// Поиск CSV-файлов в пользовательских каталогах устройства.
-///
-/// Нужен как запасной путь: на некоторых сборках ОС Аврора системный
-/// селектор файлов не открывается, и без такого списка импорт из CSV —
-/// обязательный пункт задания — оказался бы недоступен.
+/// Поиск CSV-файлов в пользовательских каталогах устройства —
+/// запасной выбор, когда системный селектор недоступен.
 class CsvFileFinder {
   const CsvFileFinder();
 
   static const List<String> _extensions = <String>['.csv', '.txt'];
 
-  /// Каталоги, в которых обычно лежат выгрузки из банков и бухгалтерии.
+  /// Каталоги, где обычно лежат выгрузки.
   static const List<String> _userFolders = <String>[
     'Documents',
     'Downloads',
@@ -87,9 +84,9 @@ class CsvFileFinder {
     try {
       add((await getApplicationDocumentsDirectory()).path);
     } on Exception {
-      // Каталог может быть недоступен — тогда просто пропускаем его.
+      // Каталог может быть недоступен.
     }
-    // Съёмный носитель: на ОС Аврора карта памяти монтируется сюда.
+    // Съёмный носитель.
     add('/run/media/${Platform.environment['USER'] ?? 'defaultuser'}');
     return roots;
   }
@@ -113,7 +110,7 @@ class CsvFileFinder {
     try {
       return directory.listSync(followLinks: false);
     } on FileSystemException {
-      // Каталог закрыт песочницей — считаем его пустым.
+      // Каталог закрыт песочницей.
       return const <FileSystemEntity>[];
     }
   }

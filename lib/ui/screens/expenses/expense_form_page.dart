@@ -19,11 +19,8 @@ import '../../../state/app_state.dart';
 import '../../widgets/aurora_app_bar.dart';
 import '../../widgets/aurora_widgets.dart';
 
-/// Создание и редактирование траты.
-///
-/// Поля соответствуют техническому заданию: сумма, категория, дата,
-/// текстовый комментарий, получатель платежа, способ оплаты, командировка
-/// и прикреплённые чеки.
+/// Создание и редактирование траты: сумма, категория, дата, комментарий,
+/// получатель платежа, способ оплаты, командировка и чеки.
 class ExpenseFormPage extends StatefulWidget {
   const ExpenseFormPage({this.expense, this.initialTripId, super.key});
 

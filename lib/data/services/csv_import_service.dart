@@ -53,9 +53,8 @@ class CsvImportResult {
 
 /// Импорт трат из локальных CSV-файлов.
 ///
-/// Формат из технического задания:
-/// `Дата (ISO8601) | Сумма (double) | Категория | Получатель | Способ оплаты |
-/// Комментарий | Командировка`.
+/// Формат: `Дата (ISO8601) | Сумма (double) | Категория | Получатель |
+/// Способ оплаты | Комментарий | Командировка`.
 ///
 /// Разделитель определяется автоматически (`;`, `,`, табуляция или `|`),
 /// строка заголовка распознаётся и пропускается. Неизвестные категории и
@@ -251,7 +250,7 @@ class CsvImportService {
     );
   }
 
-  /// Формирует CSV в формате технического задания (используется при экспорте).
+  /// Формирует CSV для экспорта.
   static String export({
     required List<Expense> expenses,
     required Map<String, ExpenseCategory> categories,
@@ -277,7 +276,7 @@ class CsvImportService {
   static bool _looksLikeHeader(List<String> cells) =>
       parseDate(cells.first) == null;
 
-  /// Разбор даты: ISO8601 по заданию, а также `dd.MM.yyyy` и `dd/MM/yyyy`.
+  /// Разбор даты: ISO8601, `dd.MM.yyyy` и `dd/MM/yyyy`.
   static DateTime? parseDate(String raw) {
     final String value = raw.trim();
     if (value.isEmpty) {

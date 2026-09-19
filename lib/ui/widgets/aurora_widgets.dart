@@ -58,8 +58,7 @@ class AuroraEmptyState extends StatelessWidget {
   }
 }
 
-/// Блок содержимого с заголовком и действием — основной строительный элемент
-/// дашборда и страниц деталей.
+/// Блок содержимого с заголовком и действием.
 class AuroraSection extends StatelessWidget {
   const AuroraSection({
     required this.title,

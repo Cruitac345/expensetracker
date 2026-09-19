@@ -73,7 +73,7 @@ void main() {
     expect(find.byIcon(Icons.menu), findsNothing);
   });
 
-  testWidgets('форма новой траты содержит поля технического задания', (
+  testWidgets('форма новой траты содержит все поля', (
     WidgetTester tester,
   ) async {
     tester.view.physicalSize = const Size(1080, 2400);

@@ -6,9 +6,6 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 /// Локальное хранилище коллекций в формате JSON.
-///
-/// Техническое задание требует локального хранения данных. Абстракция
-/// позволяет подменить реализацию в тестах на хранилище в памяти.
 abstract interface class JsonStore {
   /// Чтение коллекции. Для отсутствующей коллекции возвращается пустой список.
   Future<List<Map<String, dynamic>>> read(String collection);
@@ -20,10 +17,8 @@ abstract interface class JsonStore {
   Future<Directory> dataDirectory();
 }
 
-/// Реализация поверх файловой системы каталога данных приложения.
-///
-/// Запись атомарная: данные пишутся во временный файл и затем переименовываются,
-/// поэтому прерывание работы не повреждает коллекцию.
+/// Реализация поверх файловой системы. Запись атомарная: через временный
+/// файл с переименованием.
 class FileJsonStore implements JsonStore {
   FileJsonStore({Directory? root}) : _root = root;
 
@@ -31,9 +26,8 @@ class FileJsonStore implements JsonStore {
 
   @override
   Future<Directory> dataDirectory() async {
-    // Каталог данных приложения, а не пользовательские «Документы»:
-    // на ОС Аврора documents-каталог общий для всех приложений, а support —
-    // приватный (~/.local/share/<организация>/<приложение>).
+    // На ОС Аврора documents-каталог общий для всех приложений,
+    // support — приватный.
     final Directory root = _root ??= await getApplicationSupportDirectory();
     if (!root.existsSync()) {
       await root.create(recursive: true);
@@ -72,7 +66,7 @@ class FileJsonStore implements JsonStore {
   }
 }
 
-/// Хранилище в памяти — используется в тестах.
+/// Хранилище в памяти.
 class MemoryJsonStore implements JsonStore {
   MemoryJsonStore({Directory? directory}) : _directory = directory;
 

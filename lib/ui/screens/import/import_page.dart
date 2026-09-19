@@ -50,8 +50,7 @@ class _ImportPageState extends State<ImportPage> {
       }
       _load(name: file.name, bytes: await file.readAsBytes());
     } on Exception {
-      // Системный селектор доступен не на всех сборках ОС Аврора:
-      // тогда предлагаем выбрать файл из каталогов устройства сами.
+      // Системный селектор есть не на всех сборках — показываем свой список.
       if (mounted) {
         await _pickFromDevice(afterFailure: true);
       }
@@ -62,7 +61,7 @@ class _ImportPageState extends State<ImportPage> {
     }
   }
 
-  /// Запасной выбор файла — список CSV в каталогах устройства.
+  /// Выбор файла из каталогов устройства.
   Future<void> _pickFromDevice({bool afterFailure = false}) async {
     if (afterFailure) {
       auroraNotify(
@@ -88,7 +87,7 @@ class _ImportPageState extends State<ImportPage> {
     }
   }
 
-  /// Разбирает содержимое файла и показывает результат перед импортом.
+  /// Разбирает файл и показывает результат перед импортом.
   void _load({required String name, required Uint8List bytes}) {
     final AppState state = context.read<AppState>();
     final CsvImportResult result = CsvImportService(
@@ -157,7 +156,7 @@ class _ImportPageState extends State<ImportPage> {
         children: <Widget>[
           AuroraSection(
             title: 'Формат файла',
-            subtitle: 'Колонки в порядке технического задания',
+            subtitle: 'Порядок колонок',
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

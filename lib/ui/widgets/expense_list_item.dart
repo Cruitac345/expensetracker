@@ -10,9 +10,6 @@ import '../../data/models/trip.dart';
 import 'aurora_widgets.dart';
 
 /// Элемент списка трат.
-///
-/// Высота элемента не меньше `itemSizeMedium` (80dp) — требование к размеру
-/// целей нажатия в гайдлайне ОС Аврора.
 class ExpenseListItem extends StatelessWidget {
   const ExpenseListItem({
     required this.expense,
@@ -115,7 +112,7 @@ class ExpenseListItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: AuroraSizes.paddingMedium),
-              // Доли 3:2 не дают сумме «съесть» строку на узких экранах.
+              // Доли 3:2: на узких экранах сумма не съедает название.
               Expanded(
                 flex: 2,
                 child: Column(

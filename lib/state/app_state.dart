@@ -17,9 +17,7 @@ import '../data/store/json_store.dart';
 
 /// Состояние приложения: траты, категории, командировки и активный фильтр.
 ///
-/// Данные целиком держатся в памяти и синхронно отражаются в локальном
-/// хранилище после каждой операции — объём личной бухгалтерии это позволяет,
-/// а интерфейс получает мгновенный отклик.
+/// Данные держатся в памяти и пишутся в хранилище после каждой операции.
 class AppState extends ChangeNotifier {
   AppState({
     required ExpenseRepository expenseRepository,
@@ -122,7 +120,7 @@ class AppState extends ChangeNotifier {
 
   String newId() => _uuid.v4();
 
-  // --- Фильтрация и сортировка ---------------------------------------------
+  // Фильтрация и сортировка
 
   void applyFilter(ExpenseFilter filter) {
     _filter = filter;
@@ -159,7 +157,7 @@ class AppState extends ChangeNotifier {
     return result;
   }
 
-  // --- Траты ----------------------------------------------------------------
+  // Траты
 
   Future<void> addExpense(Expense expense) async {
     _expenses = <Expense>[..._expenses, expense];
@@ -197,7 +195,7 @@ class AppState extends ChangeNotifier {
   Future<void> removeReceiptFile(String relativePath) =>
       _receiptStorage.remove(relativePath);
 
-  // --- Категории ------------------------------------------------------------
+  // Категории
 
   Future<ExpenseCategory> addCategory({
     required String name,
@@ -276,7 +274,7 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  // --- Командировки ---------------------------------------------------------
+  // Командировки
 
   Future<Trip> addTrip({
     required String title,
@@ -339,8 +337,7 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Выгружает все траты в CSV-файл формата технического задания и
-  /// возвращает путь к созданному файлу.
+  /// Выгружает все траты в CSV-файл и возвращает путь к нему.
   Future<String> exportCsv() async {
     final Directory directory = await _store.dataDirectory();
     final String content = CsvImportService.export(
@@ -358,7 +355,7 @@ class AppState extends ChangeNotifier {
     return file.path;
   }
 
-  // --- Импорт ---------------------------------------------------------------
+  // Импорт
 
   /// Применяет результат разбора CSV: создаёт новые категории, командировки
   /// и добавляет траты.

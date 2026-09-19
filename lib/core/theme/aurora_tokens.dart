@@ -1,12 +1,8 @@
 // SPDX-License-Identifier: BSD-3-Clause
 import 'package:flutter/widgets.dart';
 
-/// Размерные константы дизайн-системы ОС Аврора.
-///
-/// Значения взяты из официального UI Kit «Aurora Controls» (Open Mobile
-/// Platform, ветка `flutter-aurora-3.35.7`): модуль сетки 4 px, отступы
-/// `padding*`, размеры иконок `iconSize*`, высоты элементов `itemSize*`.
-/// Компоненты приложения не используют «магические» числа — только эти токены.
+/// Размеры из UI Kit «Aurora Controls»: модуль сетки 4 px, отступы,
+/// размеры иконок и высоты элементов.
 class AuroraSizes {
   const AuroraSizes._();
 
@@ -24,7 +20,7 @@ class AuroraSizes {
   /// Боковые поля страницы (horizontalPageMargin).
   static const double pageMarginPhone = 16;
 
-  /// На планшете поля шире — площадь экрана позволяет.
+  /// Боковые поля страницы на планшете.
   static const double pageMarginTablet = 24;
 
   // Размеры иконок (IconSizeData)
@@ -56,10 +52,10 @@ class AuroraSizes {
   /// Толщина линий и индикаторов.
   static const double lineWidth = 2;
 
-  /// Минимальная ширина поля поиска в панели приложения (гайдлайн — 300 dp).
+  /// Минимальная ширина поля поиска в панели приложения.
   static const double searchFieldMinWidth = 300;
 
-  /// Максимальная ширина разделителя панелей SplitView (гайдлайн — 6 dp).
+  /// Максимальная ширина разделителя панелей SplitView.
   static const double splitViewSeparator = 6;
 
   /// Ширина закреплённой навигационной панели в многопанельном режиме.
@@ -102,10 +98,7 @@ class AuroraOpacity {
   static const double highlightBackground = 0.3;
 }
 
-/// Радиусы скругления.
-///
-/// Кит задаёт радиус 4 для кнопок и полей ввода; для карточек и модальных
-/// панелей приложение использует кратные модулю 8 и 16.
+/// Радиусы скругления: 4 для кнопок и полей, 8 и 16 для карточек и панелей.
 class AuroraRadius {
   const AuroraRadius._();
 

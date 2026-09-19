@@ -109,15 +109,6 @@ class SettingsPage extends StatelessWidget {
                 const _InfoRow(label: 'Версия', value: '1.0.0'),
                 const _InfoRow(label: 'Платформа', value: 'ОС Аврора 5.1.6+'),
                 const _InfoRow(label: 'Лицензия', value: 'BSD-3-Clause'),
-                const SizedBox(height: AuroraSizes.paddingMedium),
-                Text(
-                  'Интерфейс построен по гайдлайну ОС Аврора: панель '
-                  'приложения с заголовком и подзаголовком, кнопки-иконки '
-                  '48×48, многопанельный режим на планшетах.',
-                  style: text.bodySmall?.copyWith(
-                    color: context.palette.textSecondary,
-                  ),
-                ),
               ],
             ),
           ),

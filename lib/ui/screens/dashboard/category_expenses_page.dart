@@ -15,11 +15,8 @@ import '../../widgets/aurora_widgets.dart';
 import '../../widgets/expense_list_item.dart';
 import '../expenses/expense_details_view.dart';
 
-/// Список конкретных трат внутри категории за выбранный период.
-///
-/// Открывается из дашборда по нажатию на сегмент диаграммы или строку легенды
-/// (требование «Внутри трат по категории, можно получить список конкретных
-/// трат»).
+/// Траты выбранной категории за период. Открывается из дашборда нажатием
+/// на сегмент диаграммы или строку легенды.
 class CategoryExpensesPage extends StatelessWidget {
   const CategoryExpensesPage({
     required this.categoryId,

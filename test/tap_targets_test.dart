@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 //
-// Проверка элементов управления: кнопки целиком помещаются на экран,
-// не обрезаются по горизонтали и соблюдают минимальный размер цели
-// нажатия 48×48 из гайдлайна ОС Аврора.
+// Кнопки целиком помещаются на экран, не обрезаются по горизонтали
+// и не меньше цели нажатия 48×48.
 import 'package:expense_tracker/core/theme/aurora_tokens.dart';
 import 'package:expense_tracker/state/app_state.dart';
 import 'package:flutter/material.dart';

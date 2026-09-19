@@ -4,16 +4,12 @@ publish_to: 'none'
 
 version: 1.0.0+1
 
-# Читает тулчейн ОС Аврора: из них складывается идентификатор пакета
-# ru.auroraos.expense_tracker и поле License в RPM. Без них берутся
-# значения по умолчанию — com.example и Proprietary.
+# Идентификатор пакета и поле License в RPM.
 organization: ru.auroraos
 license: BSD-3-Clause
 
 environment:
-  # Нижняя граница — Dart из Flutter для ОС Аврора 3.41.4 (Dart 3.11.1).
   sdk: '>=3.11.0 <4.0.0'
-  # Целевая версия Flutter из технического задания.
   flutter: '>=3.35.7'
 
 dependencies:
@@ -30,8 +26,7 @@ dependencies:
   path: ^1.9.0
   shared_preferences: ^2.5.0
 
-  # Чеки: камера и галерея. На ОС Аврора эти пакеты приходят из
-  # pub-репозитория ОМП и сами подключают реализации *_aurora.
+  # Чеки: камера и галерея.
   image_picker: ^1.1.2
 
   # Импорт CSV из локальных файлов

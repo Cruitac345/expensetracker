@@ -8,10 +8,8 @@ import '../../../core/theme/aurora_colors.dart';
 import '../../../core/theme/aurora_tokens.dart';
 import '../../../data/services/csv_file_finder.dart';
 
-/// Показывает список CSV-файлов, найденных в каталогах устройства.
-///
-/// Запасной выбор файла на случай, когда системный селектор недоступен.
-/// Возвращает выбранный файл или `null`, если панель закрыли.
+/// Список CSV-файлов из каталогов устройства. Возвращает выбранный файл
+/// или `null`, если панель закрыли.
 Future<File?> showDeviceCsvFiles(BuildContext context) =>
     showModalBottomSheet<File>(
       context: context,

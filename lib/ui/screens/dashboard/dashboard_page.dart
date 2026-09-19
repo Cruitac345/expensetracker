@@ -59,7 +59,7 @@ class _DashboardPageState extends State<DashboardPage> {
     };
   }
 
-  /// Период в коротком виде — для подзаголовков панели приложения.
+  /// Период в коротком виде.
   String get _periodLabelShort {
     final DateRange? range = _range;
     if (range == null) {

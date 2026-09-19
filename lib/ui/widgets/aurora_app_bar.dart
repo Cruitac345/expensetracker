@@ -5,11 +5,7 @@ import '../../core/layout/adaptive.dart';
 import '../../core/theme/aurora_colors.dart';
 import '../../core/theme/aurora_tokens.dart';
 
-/// Панель приложения по гайдлайну ОС Аврора.
-///
-/// Заголовок выравнивается по левому краю и центрируется по вертикали,
-/// под ним располагается подзаголовок. Кнопки-иконки имеют размер 48×48
-/// и отделяются друг от друга отступом не меньше `paddingMedium`.
+/// Панель приложения: заголовок с подзаголовком слева, кнопки-иконки справа.
 class AuroraAppBar extends StatelessWidget implements PreferredSizeWidget {
   const AuroraAppBar({
     required this.title,
@@ -98,7 +94,7 @@ class AuroraAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-/// Кнопка-иконка панели приложения: размер 48×48 (гайдлайн — `iconSizeSmallPlus`).
+/// Кнопка-иконка панели приложения, 48×48.
 class AuroraIconButton extends StatelessWidget {
   const AuroraIconButton({
     required this.icon,
@@ -170,8 +166,6 @@ class AuroraIconButton extends StatelessWidget {
 }
 
 /// Строка поиска панели приложения.
-///
-/// Показывается в развёрнутом виде, минимальная ширина — 300dp (гайдлайн).
 class AuroraSearchField extends StatelessWidget implements PreferredSizeWidget {
   const AuroraSearchField({
     required this.controller,

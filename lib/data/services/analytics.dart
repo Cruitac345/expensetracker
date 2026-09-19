@@ -52,9 +52,6 @@ class TripTotal {
 }
 
 /// Агрегация трат для дашборда.
-///
-/// Все расчёты — чистые функции над списком трат, поэтому покрываются
-/// модульными тестами без участия интерфейса и хранилища.
 class ExpenseAnalytics {
   const ExpenseAnalytics._();
 
@@ -63,8 +60,7 @@ class ExpenseAnalytics {
     (double sum, Expense expense) => sum + expense.amount,
   );
 
-  /// Распределение трат по месяцам. Месяцы без трат заполняются нулями,
-  /// чтобы столбчатая диаграмма не имела разрывов по временной оси.
+  /// Распределение трат по месяцам; месяцы без трат заполняются нулями.
   static List<MonthTotal> byMonth(List<Expense> expenses, {DateRange? range}) {
     if (expenses.isEmpty && range == null) {
       return const <MonthTotal>[];

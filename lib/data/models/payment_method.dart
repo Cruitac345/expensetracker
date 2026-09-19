@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 import 'package:flutter/material.dart';
 
-/// Способ оплаты траты (техническое задание, раздел «Способы оплаты»).
+/// Способ оплаты траты.
 enum PaymentMethod {
   card('card', 'Карта', Icons.credit_card, <String>['карта', 'card', 'картой']),
   cash('cash', 'Наличные', Icons.payments_outlined, <String>[

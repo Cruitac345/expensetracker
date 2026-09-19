@@ -13,10 +13,8 @@ import '../../../state/app_state.dart';
 import '../../widgets/aurora_app_bar.dart';
 import '../../widgets/aurora_widgets.dart';
 
-/// Категории трат.
-///
-/// Стандартные категории из технического задания защищены от изменения и
-/// удаления, пользовательские можно создавать, редактировать и удалять.
+/// Категории трат: стандартные защищены от изменения и удаления,
+/// пользовательские можно создавать, редактировать и удалять.
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({this.leading, super.key});
 

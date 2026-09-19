@@ -5,11 +5,7 @@ import 'package:flutter/services.dart';
 import 'aurora_colors.dart';
 import 'aurora_tokens.dart';
 
-/// Тема приложения по дизайн-системе ОС Аврора.
-///
-/// Типографическая шкала и размеры повторяют официальный UI Kit
-/// «Aurora Controls»: размеры шрифта 12/14/16/19/21/26/28, межстрочный
-/// интервал 1.25, начертания 400/500/700, радиус кнопок и полей 4.
+/// Тема приложения по UI Kit «Aurora Controls».
 class AuroraTheme {
   const AuroraTheme._();
 
@@ -18,8 +14,7 @@ class AuroraTheme {
   static ThemeData dark() => _build(AuroraPalette.dark);
 
   static ThemeData _build(AuroraPalette palette) {
-    // Гарнитура применяется сразу: стили кнопок и полей берутся из этой
-    // шкалы напрямую, поэтому семейство шрифта должно быть в ней уже задано.
+    // Стили кнопок и полей берут шкалу напрямую, поэтому гарнитура задаётся тут.
     final TextTheme textTheme = _textTheme(palette).apply(fontFamily: 'Roboto');
 
     return ThemeData(

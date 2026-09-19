@@ -3,10 +3,8 @@ import 'package:flutter/foundation.dart';
 
 import 'category_icons.dart';
 
-/// Категория траты.
-///
-/// Стандартные категории (`isBuiltIn`) заданы техническим заданием, их нельзя
-/// удалить. Пользовательские категории можно создавать, изменять и удалять.
+/// Категория траты. Стандартные (`isBuiltIn`) удалить нельзя,
+/// пользовательские можно создавать, изменять и удалять.
 @immutable
 class ExpenseCategory {
   const ExpenseCategory({
@@ -33,7 +31,7 @@ class ExpenseCategory {
   /// Индекс цвета в палитре диаграмм.
   final int colorIndex;
 
-  /// Стандартная категория из технического задания.
+  /// Стандартная категория.
   final bool isBuiltIn;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -53,7 +51,7 @@ class ExpenseCategory {
         isBuiltIn: isBuiltIn,
       );
 
-  /// Стандартные категории трат (техническое задание, раздел «Категории трат»).
+  /// Стандартные категории трат.
   static const List<ExpenseCategory> defaults = <ExpenseCategory>[
     ExpenseCategory(
       id: 'cat_groceries',

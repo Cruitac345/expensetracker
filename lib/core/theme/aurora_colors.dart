@@ -3,22 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'aurora_tokens.dart';
 
-/// Палитра приложения по цветовой системе ОС Аврора.
-///
-/// ОС Аврора строит цвета вокруг «атмосфер» (Reef, Peak, Pebbles, Volcano,
-/// Lake, Aura), у каждой — тёмный и светлый вариант. Значения ниже взяты из
-/// официального UI Kit «Aurora Controls» для атмосферы Reef, которая
-/// используется по умолчанию:
-///
-/// * `primary` — основной текст: белый в тёмной схеме, чёрный в светлой;
-/// * `secondary` — второстепенный текст: тот же цвет с прозрачностью 0xAF;
-/// * `highlight` — акцент для иконок, ссылок и индикаторов;
-/// * `highlightBackground` — заливка акцентных элементов;
-/// * `error` — цвет ошибки.
-///
-/// Фон тёмной схемы — не чистый чёрный, а `#0C0E13`: на нём карточки
-/// (`#171A21`) и поля ввода (`#232833`) читаются как отдельные плоскости,
-/// а контраст текста не режет глаз.
+/// Палитра приложения: атмосфера Reef из UI Kit «Aurora Controls».
 @immutable
 class AuroraPalette {
   const AuroraPalette({
@@ -73,13 +58,13 @@ class AuroraPalette {
   /// Ошибка (error).
   final Color danger;
 
-  /// Успешное состояние — цвет уровня приложения, в ките не задан.
+  /// Успешное состояние.
   final Color success;
 
-  /// Предупреждение — цвет уровня приложения, в ките не задан.
+  /// Предупреждение.
   final Color warning;
 
-  /// Тёмная схема атмосферы Reef — основная для ОС Аврора.
+  /// Тёмная схема.
   static const AuroraPalette dark = AuroraPalette(
     brightness: Brightness.dark,
     background: Color(0xFF0C0E13),
@@ -97,7 +82,7 @@ class AuroraPalette {
     warning: Color(0xFFFFBE7E),
   );
 
-  /// Светлая схема атмосферы Reef.
+  /// Светлая схема.
   static const AuroraPalette light = AuroraPalette(
     brightness: Brightness.light,
     background: Color(0xFFEEEEEE),
@@ -115,10 +100,7 @@ class AuroraPalette {
     warning: Color(0xFFC74A0C),
   );
 
-  /// Палитра категорий и диаграмм: различимая в обеих схемах.
-  ///
-  /// Первый цвет совпадает с акцентом атмосферы Reef, остальные подобраны
-  /// так, чтобы соседние сегменты диаграмм не сливались.
+  /// Палитра категорий и диаграмм, различимая в обеих схемах.
   static const List<Color> chart = <Color>[
     Color(0xFF0072E5),
     Color(0xFF5BD98A),

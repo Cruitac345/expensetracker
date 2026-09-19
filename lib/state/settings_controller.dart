@@ -13,8 +13,7 @@ class SettingsController extends ChangeNotifier {
 
   ThemeMode get themeMode => _themeMode;
 
-  /// Читает сохранённые настройки. Ошибки хранилища не критичны:
-  /// приложение продолжает работу со значениями по умолчанию.
+  /// Читает сохранённые настройки; при ошибке остаются значения по умолчанию.
   Future<void> load() async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -39,7 +38,7 @@ class SettingsController extends ChangeNotifier {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString(_themeKey, mode.name);
     } on Exception {
-      // Настройка не сохранилась — не влияет на работу приложения.
+      // Настройка не сохранилась.
     }
   }
 

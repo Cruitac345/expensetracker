@@ -8,11 +8,8 @@ import 'core/theme/aurora_theme.dart';
 import 'state/settings_controller.dart';
 import 'ui/screens/home/home_shell.dart';
 
-/// Прокрутка списков не только пальцем, но и протягиванием мыши.
-///
-/// На устройстве экран сенсорный, а в эмуляторе ОС Аврора указатель приходит
-/// от виртуального планшета и опознаётся как мышь: без этого списки
-/// в эмуляторе не прокручиваются.
+/// Списки тянутся и пальцем, и мышью: в эмуляторе указатель приходит
+/// от виртуального планшета и опознаётся как мышь.
 class _AuroraScrollBehavior extends MaterialScrollBehavior {
   const _AuroraScrollBehavior();
 
